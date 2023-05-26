@@ -1,0 +1,24 @@
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\$(MSBuildThisFile)\ImportBefore\*" Condition="Exists('$(MSBuildThisFileDirectory)..\..\$(MSBuildThisFile)\ImportBefore\')" />
+
+
+
+  <ItemGroup>
+    <None Remove="@(PackageAssets)" />
+    <None Include="@(PackageAssets)">
+      <ItemSource>PackageAssets</ItemSource>
+      <Pack>true</Pack>
+
+      <!-- If RelativeDir is rooted then use it -->
+      <RootFolder Condition="$([System.IO.Path]::IsPathRooted('%(RelativeDir)'))">%(RelativeDir)</RootFolder>
+      <!-- Otherwise root it -->
+      <RootFolder Condition="'%(RootFolder)' == ''">$([System.IO.Path]::GetFullPath('$([System.IO.Path]::Combine('$(MSBuildProjectDirectory)', '%(RelativeDir)'))'))</RootFolder>
+    </None>
+  </ItemGroup>
+
+
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\$(MSBuildThisFile)\ImportAfter\*" Condition="Exists('$(MSBuildThisFileDirectory)..\..\$(MSBuildThisFile)\ImportAfter\')" />
+
+</Project>

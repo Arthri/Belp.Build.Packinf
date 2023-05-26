@@ -1,0 +1,39 @@
+<Project ToolsVersion="15.0" TreatAsLocalProperty="_CountBeforeREADME" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="$(MSBuildThisFileDirectory)Imports\_Package.targets\ImportBefore\*" Condition="Exists('$(MSBuildThisFileDirectory)Imports\_Package.targets\ImportBefore\')" />
+
+
+
+  <ItemGroup>
+    <!--
+      https://learn.microsoft.com/en-us/nuget/reference/errors-and-warnings/nu5128
+      Add the lib\<TFM>\_._ file for metapackages.
+    -->
+    <TfmSpecificPackageFile Condition="'$(AddMetapackagePlaceholderLibrary)' == 'true'" Include="$(MSBuildThisFileDirectory)empty._" PackagePath="\lib\$(TargetFramework)\_._" Link="Assets\lib\$(TargetFramework)\%(Filename)%(Extension)" />
+  </ItemGroup>
+
+
+
+  <!-- Change the file name "_Package" to $(PackageId) -->
+  <Target Name="_RenameUnderscorePackageFiles" BeforeTargets="GenerateNuspec" Condition="'$(EnableDefaultPackItems)' != 'false'">
+    <ItemGroup>
+      <!-- For files with a defined %(PackagePath), use that -->
+      <_PackageFiles Condition="'%(Filename)' == '_Package' And '%(_PackageFiles.PackagePath)' != ''">
+        <_E_SpecifiedPackagePathHasFilename Condition="'$([System.IO.Path]::GetFileName(%(_PackageFiles.PackagePath)))' != ''">true</_E_SpecifiedPackagePathHasFilename>
+        <PackagePath>$([System.IO.Path]::Combine('%(_PackageFiles.PackagePath)', '%(RecursiveDir)', '$(PackageId)%(Extension)'))</PackagePath>
+      </_PackageFiles>
+
+      <!-- For files without a defined %(PackagePath), use NuGet's implementation -->
+      <_PackageFiles Condition="'%(Filename)' == '_Package' And '%(PackagePath)' == ''">
+        <PackagePath>%(RecursiveDir)$(PackageId)%(Extension)</PackagePath>
+      </_PackageFiles>
+    </ItemGroup>
+
+    <Error Condition="'%(_PackageFiles._E_SpecifiedPackagePathHasFilename)' == 'true'" File="%(_PackageFiles.Identity)" Text="Package path must be either unspecified or specified as a directory, not as a file." />
+  </Target>
+
+
+
+  <Import Project="$(MSBuildThisFileDirectory)Imports\_Package.targets\ImportAfter\*" Condition="Exists('$(MSBuildThisFileDirectory)Imports\_Package.targets\ImportAfter\')" />
+
+</Project>

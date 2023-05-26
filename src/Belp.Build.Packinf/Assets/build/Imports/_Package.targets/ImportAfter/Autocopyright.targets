@@ -1,0 +1,19 @@
+<Project InitialTargets="_CheckAutoCopyrightErrors" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Copyright is undefined and copyright generation is enabled -->
+  <PropertyGroup Condition="'$(Copyright)' == '' And '$(DisableAutoCopyright)' != 'true'">
+    <CopyrightGenerated>true</CopyrightGenerated>
+    <Copyright>@(CopyrightOwner->'Copyright (C) %(Years) %(Identity).', '%0A')%0AAll rights reserved.</Copyright>
+  </PropertyGroup>
+
+
+
+  <!-- Raise configuration errors -->
+  <Target Name="_CheckAutoCopyrightErrors">
+    <Warning Text="Copyright notice is explicitly defined but copyright generation is also enabled." Condition="'$(CopyrightGenerated)' != 'true' And '$(DisableAutoCopyright)' != 'true'" />
+    <Warning Text="Copyright notice is not defined but copyright generation is also disabled." Condition="'$(RequireCopyrightNotice)' != 'false' And '$(Copyright)' == '' And '$(DisableAutoCopyright)' == 'true'" />
+    <Error Text="No copyright owners defined." Condition="'$(DisableAutoCopyright)' != 'true' And '@(CopyrightOwner)' == ''" />
+    <Error Text="'%(CopyrightOwner.Identity)' does not have any defined copyrightable years." Condition="'%(CopyrightOwner.Years)' == ''" />
+  </Target>
+
+</Project>
