@@ -2,7 +2,7 @@
 
   <!-- Determine if AssemblyVersion is already set -->
   <Target Name="_CheckAssemblyVersion">
-    <Error Condition="'$(AssemblyVersion)' != '' And '$(DisableAutoasmver)' != 'true'" Text="AssemblyVersion is already defined. Please uninstall or disable(set %24(DisableAutoasmver) to true) the package to manually define AssemblyVersion." />
+    <Error Code="PKF4001" Condition="'$(AssemblyVersion)' != '' And '$(DisableAutoasmver)' != 'true'" Text="AssemblyVersion is already defined. Please uninstall or disable(set %24(DisableAutoasmver) to true) the package to manually define AssemblyVersion." />
   </Target>
 
 

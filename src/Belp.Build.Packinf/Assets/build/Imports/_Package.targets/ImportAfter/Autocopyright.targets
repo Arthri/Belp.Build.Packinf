@@ -10,10 +10,10 @@
 
   <!-- Raise configuration errors -->
   <Target Name="_CheckAutoCopyrightErrors">
-    <Warning Text="Copyright notice is explicitly defined but copyright generation is also enabled." Condition="'$(CopyrightGenerated)' != 'true' And '$(DisableAutoCopyright)' != 'true'" />
-    <Warning Text="Copyright notice is not defined but copyright generation is also disabled." Condition="'$(RequireCopyrightNotice)' != 'false' And '$(Copyright)' == '' And '$(DisableAutoCopyright)' == 'true'" />
-    <Error Text="No copyright owners defined." Condition="'$(DisableAutoCopyright)' != 'true' And '@(CopyrightOwner)' == ''" />
-    <Error Text="'%(CopyrightOwner.Identity)' does not have any defined copyrightable years." Condition="'%(CopyrightOwner.Years)' == ''" />
+    <Warning Code="PKF4002" Text="Copyright notice is explicitly defined but copyright generation is also enabled." Condition="'$(CopyrightGenerated)' != 'true' And '$(DisableAutoCopyright)' != 'true'" />
+    <Warning Code="PKF4003" Text="Copyright notice is not defined but copyright generation is also disabled." Condition="'$(RequireCopyrightNotice)' != 'false' And '$(Copyright)' == '' And '$(DisableAutoCopyright)' == 'true'" />
+    <Error Code="PKF4004" Text="No copyright owners defined." Condition="'$(DisableAutoCopyright)' != 'true' And '@(CopyrightOwner)' == ''" />
+    <Error Code="PKF4005" Text="'%(CopyrightOwner.Identity)' does not have any defined copyrightable years." Condition="'%(CopyrightOwner.Years)' == ''" />
   </Target>
 
 </Project>

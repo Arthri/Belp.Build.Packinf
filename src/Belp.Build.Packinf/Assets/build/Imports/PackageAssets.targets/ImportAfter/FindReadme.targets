@@ -25,7 +25,7 @@
 
   <!-- Raise diagnostics for invalid configurations. -->
   <Target Name="_DetectInvalidReadmeConfiguration">
-    <Warning Condition="@(PackageReadme->Count()) != 1" File="%(PackageReadme.Identity)" Text="Only one README is required." />
+    <Warning Code="PKF4006" Condition="@(PackageReadme->Count()) != 1" File="%(PackageReadme.Identity)" Text="Only one README is required." />
   </Target>
 
   <!-- Set README in package metadata. -->
