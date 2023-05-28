@@ -4,7 +4,7 @@
   <Target Name="_TryFindReadme" BeforeTargets="GenerateNuspec">
     <ItemGroup>
       <PackageReadme Include="@(None->WithMetadataValue('Pack', 'true')->WithMetadataValue('Filename', 'README'))" Condition="('%(None.PackagePath)' == '' And '%(RecursiveDir)' == '' And (!$([System.IO.Path]::IsPathRooted('%(RelativeDir)')) Or '$([MSBuild]::MakeRelative($(MSBuildProjectDirectory), %(RelativeDir)))' == '')) Or ('%(None.PackagePath)' != '' And '$([System.Text.RegularExpressions.Regex]::Replace($([System.IO.Path]::GetDirectoryName(%(None.PackagePath))), \A[/\\]+, ))' == '')">
-        <ItemSource Condition="'%(PackageReadme.ItemSource)' != 'PackageAssetsDirectory'">DefaultItems</ItemSource>
+        <ItemSource Condition="'%(PackageReadme.ItemSource)' != 'PackageAssets'">DefaultItems</ItemSource>
       </PackageReadme>
     </ItemGroup>
   </Target>
