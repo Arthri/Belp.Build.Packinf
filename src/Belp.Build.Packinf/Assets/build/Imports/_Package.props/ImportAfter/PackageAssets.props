@@ -1,7 +1,15 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+  <Import Project="$(MSBuildThisFileDirectory)..\..\$(MSBuildThisFile)\ImportBefore\*" Condition="Exists('$(MSBuildThisFileDirectory)..\..\$(MSBuildThisFile)\ImportBefore\')" />
+
+
+
   <ItemGroup>
     <PackageAssets Include="Assets\**\*" PackagePath="/" />
   </ItemGroup>
+
+
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\$(MSBuildThisFile)\ImportAfter\*" Condition="Exists('$(MSBuildThisFileDirectory)..\..\$(MSBuildThisFile)\ImportAfter\')" />
 
 </Project>
