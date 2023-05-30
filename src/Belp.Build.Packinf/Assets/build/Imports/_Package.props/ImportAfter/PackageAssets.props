@@ -11,6 +11,13 @@
 
 
 
+  <PropertyGroup>
+    <!-- This needs to happen before packing acquires package files. -->
+    <GenerateNuspecDependsOn>$(GenerateNuspecDependsOn);_SetPackagePathForContentFiles</GenerateNuspecDependsOn>
+  </PropertyGroup>
+
+
+
   <Import Project="$(MSBuildThisFileDirectory)..\..\$(MSBuildThisFile)\ImportAfter\*" Condition="Exists('$(MSBuildThisFileDirectory)..\..\$(MSBuildThisFile)\ImportAfter\')" />
 
 </Project>
