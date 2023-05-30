@@ -4,7 +4,7 @@
 
 
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(EnableDefaultPackItems)' != 'false'">
     <PackageAssets Include="Assets\**\*" PackagePath="/" />
   </ItemGroup>
 
