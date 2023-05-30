@@ -45,8 +45,8 @@
   <Target Name="_SetPackagePathForContentFiles" AfterTargets="_GetPackageFiles">
     <ItemGroup>
       <_PackageFiles Condition="'%(_PackageFiles.PackagePath)' != '' And '%(_PackageFiles.FixedContentFilesPath)' != 'true'">
-        <PackagePath Condition="'%(_PackageFiles.BuildAction)' == 'Compile'">$([System.Text.RegularExpressions.Regex].Replace('%(_PackageFiles.PackagePath)', '(?&lt;=\A|;)contentfiles[/\\]*(?=;|\Z)', '$(_contentfiles_cs)'))</PackagePath>
-        <PackagePath Condition="'%(_PackageFiles.BuildAction)' != 'Compile'">$([System.Text.RegularExpressions.Regex].Replace('%(_PackageFiles.PackagePath)', '(?&lt;=\A|;)contentfiles[/\\]*(?=;|\Z)', '$(_contentfiles_any)'))</PackagePath>
+        <PackagePath Condition="'%(_PackageFiles.BuildAction)' == 'Compile'">$([System.Text.RegularExpressions.Regex]::Replace('%(_PackageFiles.PackagePath)', '(?&lt;=\A|;)contentfiles[/\\]*(?=;|\Z)', '$(_contentfiles_cs)'))</PackagePath>
+        <PackagePath Condition="'%(_PackageFiles.BuildAction)' != 'Compile'">$([System.Text.RegularExpressions.Regex]::Replace('%(_PackageFiles.PackagePath)', '(?&lt;=\A|;)contentfiles[/\\]*(?=;|\Z)', '$(_contentfiles_any)'))</PackagePath>
         <FixedContentFilesPath>true</FixedContentFilesPath>
       </_PackageFiles>
     </ItemGroup>
