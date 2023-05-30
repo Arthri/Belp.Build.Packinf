@@ -1,7 +1,17 @@
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project InitialTargets="_CheckReadmePresence" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- If PackageReadme is already defined, then disable further search. -->
+  <Target Name="_CheckReadmePresence">
+    <PropertyGroup Condition="@(PackageReadme->Count()) != 0">
+      <PackageReadmeFound>true</PackageReadmeFound>
+      <FindReadmeInPackageFiles>false</FindReadmeInPackageFiles>
+    </PropertyGroup>
+  </Target>
+
+
 
   <!-- Try find README in project or package assets folders. -->
-  <Target Name="_TryFindReadme">
+  <Target Name="_TryFindReadme" Condition="'$(PackageReadmeFound)' != 'true'">
     <ItemGroup>
       <PackageReadme Include="@(None->WithMetadataValue('Pack', 'true')->WithMetadataValue('Filename', 'README'))" Condition="('%(None.PackagePath)' == '' And '%(RecursiveDir)' == '' And (!$([System.IO.Path]::IsPathRooted('%(RelativeDir)')) Or '$([MSBuild]::MakeRelative($(MSBuildProjectDirectory), %(RelativeDir)))' == '')) Or ('%(None.PackagePath)' != '' And '$([System.Text.RegularExpressions.Regex]::Replace($([System.IO.Path]::GetDirectoryName(%(None.PackagePath))), \A[/\\]+, ))' == '')">
         <ItemSource Condition="'%(PackageReadme.ItemSource)' != 'PackageAssets'">DefaultItems</ItemSource>
@@ -11,8 +21,8 @@
 
 
 
-  <!-- If no READMEs has been found so far, try finding in repository root. -->
-  <Target Name="_TryFindReadmeFromRepositoryRoot" AfterTargets="_TryFindReadme" Condition="@(PackageReadme->Count()) == 0" DependsOnTargets="InitializeSourceControlInformation">
+  <!-- Try looking for README in repository root -->
+  <Target Name="_TryFindReadmeFromRepositoryRoot" BeforeTargets="_GetPackageFiles" Condition="'$(PackageReadmeFound)' != 'true' And @(PackageReadme->Count()) == 0" DependsOnTargets="InitializeSourceControlInformation">
     <ItemGroup>
       <PackageReadme Include="@(SourceRoot->Combine('README.md'))" Condition="'%(SourceRoot.SourceControl)' != '' And '%(SourceRoot.ContainingRoot)' == '' And Exists('%(FullPath)README.md')" Pack="true" PackagePath="\">
         <ItemSource>RepositoryRoot</ItemSource>
