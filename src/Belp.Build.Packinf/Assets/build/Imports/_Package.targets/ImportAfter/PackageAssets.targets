@@ -10,6 +10,9 @@
       <ItemSource>PackageAssets</ItemSource>
       <Pack>true</Pack>
 
+      <PackagePath Condition="'%(Filename)' == '_Package' And '%(PackagePath)' == ''">content;$(_contentfiles_any)</PackagePath>
+      <PackagePath Condition="'%(Filename)' == '_Package'">$([System.Text.RegularExpressions.Regex]::Replace('%(PackagePath)', '(?&lt;=[^;])(?=;|\Z)', '%(RecursiveDir)$(PackageId)%(Extension)'))</PackagePath>
+
       <!-- If RelativeDir is rooted then use it -->
       <RootFolder Condition="$([System.IO.Path]::IsPathRooted('%(RelativeDir)'))">%(RelativeDir)</RootFolder>
       <!-- Otherwise root it -->
