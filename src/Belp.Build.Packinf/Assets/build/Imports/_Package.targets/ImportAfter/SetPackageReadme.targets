@@ -2,7 +2,7 @@
 
   <!-- Check and raise diagnostics for README configuration. -->
   <Target Name="_CheckReadmeConfiguration">
-    <Warning Code="BLP4006" Condition="@(PackageReadme->Count()) > 1" Text="Multiple READMEs included in package. @(PackageReadme, ', ')" />
+    <Warning Code="BLP4006" Condition="@(PackageReadme->Count()) > 1" Text="Multiple candidate package READMEs found. @(PackageReadme, ', ')" />
   </Target>
 
   <!-- If a README file was registered earlier, use it. -->
