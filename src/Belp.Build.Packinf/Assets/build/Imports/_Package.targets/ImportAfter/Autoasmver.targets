@@ -2,7 +2,7 @@
 
   <!-- Determine if AssemblyVersion is already set -->
   <Target Name="_CheckAssemblyVersion">
-    <Error Code="BLP4001" Condition="'$(AssemblyVersion)' != '' And '$(DisableAutoasmver)' != 'true'" Text="AssemblyVersion is already defined. Please uninstall or disable(set %24(DisableAutoasmver) to true) the package to manually define AssemblyVersion." />
+    <Error Code="BLP4001" Condition="'$(AssemblyVersion)' != '' And '$(DisableAutoasmver)' != 'true'" Text="AssemblyVersion is already defined. Please uninstall Packinf or disable(set %24(DisableAutoasmver) to true) Autoasmver to manually define AssemblyVersion." />
   </Target>
 
 
