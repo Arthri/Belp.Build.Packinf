@@ -1,7 +1,7 @@
 <Project InitialTargets="_TryFindReadmeFromRepositoryRoot;SetPackageReadmeFile" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <!-- Check and raise diagnostics for README configuration. -->
-  <Target Name="_CheckReadmeConfiguration">
+  <Target Name="_CheckReadmeConfiguration" Condition="'$(PackageReadmeFile)' == ''">
     <Warning Code="BLP4006" Condition="@(PackageReadme->Count()) > 1" Text="Multiple candidate package READMEs found. @(PackageReadme, ', ')" />
   </Target>
 
