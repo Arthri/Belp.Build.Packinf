@@ -1,0 +1,44 @@
+<Project>
+
+  <Import Project="Assets/build/_Package.props" />
+
+  <Import Project="Sdk.props" Sdk="Belp.SDK.PackOnly" Version="0.2.0" />
+
+
+
+  <!-- Package Information -->
+  <PropertyGroup>
+    <AddMetapackagePlaceholderLibrary>true</AddMetapackagePlaceholderLibrary>
+    <Authors>Arthri</Authors>
+    <Description>A package that extends MSBuild to make it easier to make NuGet packages.</Description>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <DisableAutoasmver>true</DisableAutoasmver>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Arthri/Belp.Build.Packinf/</PackageProjectUrl>
+    <PackageTags>msbuild</PackageTags>
+    <Product>Belp</Product>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <Title>Packinf</Title>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <CopyrightOwner Include="Arthri" Years="2023" />
+  </ItemGroup>
+
+
+
+  <!-- Development Dependencies -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+
+
+  <Import Project="Sdk.targets" Sdk="Belp.SDK.PackOnly" Version="0.2.0" />
+
+  <Import Project="Assets/build/_Package.targets" />
+
+</Project>

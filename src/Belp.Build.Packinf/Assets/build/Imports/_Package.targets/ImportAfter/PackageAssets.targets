@@ -1,0 +1,62 @@
+<Project ToolsVersion="15.0" TreatAsLocalProperty="_contentfiles_any;_contentfiles_cs" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\$(MSBuildThisFile)\ImportBefore\*" Condition="Exists('$(MSBuildThisFileDirectory)..\..\$(MSBuildThisFile)\ImportBefore\')" />
+
+
+
+  <ItemGroup>
+    <None Remove="@(PackageAssets)" />
+    <None Include="@(PackageAssets)">
+      <ItemSource>PackageAssets</ItemSource>
+      <Pack>true</Pack>
+
+      <PackagePath Condition="'%(Filename)' == '_Package' And '%(PackagePath)' == ''">content;$(_contentfiles_any)</PackagePath>
+      <PackagePath Condition="'%(Filename)' == '_Package'">$([System.Text.RegularExpressions.Regex]::Replace('%(PackagePath)', '(?&lt;=[^;])(?=;|\Z)', '%(RecursiveDir)$(PackageId)%(Extension)'))</PackagePath>
+
+      <!-- If RelativeDir is rooted then use it -->
+      <RootFolder Condition="$([System.IO.Path]::IsPathRooted('%(RelativeDir)'))">%(RelativeDir)</RootFolder>
+      <!-- Otherwise root it -->
+      <RootFolder Condition="'%(RootFolder)' == ''">$([System.IO.Path]::GetFullPath('$([System.IO.Path]::Combine('$(MSBuildProjectDirectory)', '%(RelativeDir)'))'))</RootFolder>
+    </None>
+  </ItemGroup>
+
+
+
+  <!-- Fix PackagePaths containing contentfiles/. -->
+  <!-- Pre-generate paths for contentfiles. -->
+  <Choose>
+    <When Condition="'$(TargetFrameworks)' == ''">
+      <PropertyGroup>
+        <_contentfiles_any>contentfiles/any/$(TargetFramework)/</_contentfiles_any>
+        <_contentfiles_cs>contentfiles/cs/$(TargetFramework)/</_contentfiles_cs>
+      </PropertyGroup>
+    </When>
+
+    <Otherwise>
+      <PropertyGroup>
+        <_contentfiles_any>$([System.Text.RegularExpressions.Regex]::Replace('$(TargetFrameworks)', '(?&lt;=\A|;)[^;]+(?=;|\Z)', 'contentfiles/any/$0/'))</_contentfiles_any>
+        <_contentfiles_cs>$([System.Text.RegularExpressions.Regex]::Replace('$(TargetFrameworks)', '(?&lt;=\A|;)[^;]+(?=;|\Z)', 'contentfiles/cs/$0/'))</_contentfiles_cs>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+
+  <!--
+    NuGet only implements contentfiles for packages without
+    an explicitly PackagePath. For files with such, it must
+    be reimplemented.
+  -->
+  <Target Name="_SetPackagePathForContentFiles" AfterTargets="_GetPackageFiles">
+    <ItemGroup>
+      <_PackageFiles Condition="'%(_PackageFiles.PackagePath)' != '' And '%(_PackageFiles.FixedContentFilesPath)' != 'true'">
+        <PackagePath Condition="'%(_PackageFiles.BuildAction)' == 'Compile'">$([System.Text.RegularExpressions.Regex]::Replace('%(_PackageFiles.PackagePath)', '(?&lt;=\A|;)contentfiles[/\\]*(?=;|\Z)', '$(_contentfiles_cs)'))</PackagePath>
+        <PackagePath Condition="'%(_PackageFiles.BuildAction)' != 'Compile'">$([System.Text.RegularExpressions.Regex]::Replace('%(_PackageFiles.PackagePath)', '(?&lt;=\A|;)contentfiles[/\\]*(?=;|\Z)', '$(_contentfiles_any)'))</PackagePath>
+        <FixedContentFilesPath>true</FixedContentFilesPath>
+      </_PackageFiles>
+    </ItemGroup>
+  </Target>
+
+
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\$(MSBuildThisFile)\ImportAfter\*" Condition="Exists('$(MSBuildThisFileDirectory)..\..\$(MSBuildThisFile)\ImportAfter\')" />
+
+</Project>

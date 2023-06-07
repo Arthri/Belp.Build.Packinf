@@ -1,0 +1,17 @@
+<Project InitialTargets="_CheckAssemblyVersion" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Determine if AssemblyVersion is already set -->
+  <Target Name="_CheckAssemblyVersion" Condition="'$(DisableAutoasmver)' != 'true'">
+    <Error Code="BLP4001" Condition="'$(AssemblyVersion)' != ''" Text="AssemblyVersion is already defined. Uninstall Packinf or disable(set %24(DisableAutoasmver) to true) Autoasmver to manually define AssemblyVersion." />
+  </Target>
+
+
+
+  <!-- Modify AssemblyVersion -->
+  <Target AfterTargets="GetAssemblyVersion" Condition="'$(DisableAutoasmver)' != 'true'" Name="SetAssemblyVersion">
+    <PropertyGroup>
+      <AssemblyVersion>$(AssemblyVersion.Remove($(AssemblyVersion.IndexOf('.')))).0.0.0</AssemblyVersion>
+    </PropertyGroup>
+  </Target>
+
+</Project>
