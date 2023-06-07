@@ -6,7 +6,9 @@
 
   <!-- Configure default package assets -->
   <ItemGroup Condition="'$(EnableDefaultPackItems)' != 'false'">
-    <PackageAssets Include="Assets\**\*" PackagePath="/" />
+    <PackageAssets Include="Assets\**\*" PackagePath="/">
+      <BuildAction Condition="'%(BuildAction)' == '' And '%(Filename)' == '$(DefaultLanguageSourceExtension)'">Compile</BuildAction>
+    </PackageAssets>
   </ItemGroup>
 
 
