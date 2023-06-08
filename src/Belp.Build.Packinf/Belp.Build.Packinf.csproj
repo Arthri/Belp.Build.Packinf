@@ -2,7 +2,7 @@
 
   <Import Project="Assets/build/_Package.props" />
 
-  <Import Project="Sdk.props" Sdk="Belp.SDK.PackOnly" Version="0.2.0" />
+  <Import Project="Sdk.props" Sdk="Belp.SDK.PackOnly" Version="0.3.0" />
 
 
 
@@ -37,7 +37,7 @@
 
 
 
-  <Import Project="Sdk.targets" Sdk="Belp.SDK.PackOnly" Version="0.2.0" />
+  <Import Project="Sdk.targets" Sdk="Belp.SDK.PackOnly" Version="0.3.0" />
 
   <Import Project="Assets/build/_Package.targets" />
 
