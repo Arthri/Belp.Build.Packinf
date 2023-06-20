@@ -7,9 +7,9 @@ on:
 
 jobs:
   deploy:
-    uses: Arthri/deploy_nuget/.github/workflows/deploy.yml@v1
+    uses: Arthri/deploy-nuget/.github/workflows/deploy.yml@v1
     secrets:
-      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      NUGET-API-KEY: ${{ secrets.NUGET-API-KEY }}
     with:
       changelog: ${{ github.event.release.body }}
       version: ${{ github.event.release.tag_name }}

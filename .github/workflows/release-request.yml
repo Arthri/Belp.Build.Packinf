@@ -13,8 +13,8 @@ on:
       - master
 
 jobs:
-  handle_release_request:
+  handle-release-request:
     name: ${{ github.event.action == 'closed' && 'Resolve ' || 'Verify ' }}Release Request
     permissions:
       contents: write
-    uses: Arthri/release_request/.github/workflows/release_request.yml@v1
+    uses: Arthri/release-request/.github/workflows/release-request.yml@v1
