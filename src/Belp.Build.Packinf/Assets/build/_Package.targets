@@ -12,7 +12,7 @@
 
   <Import Project="$(MSBuildThisFileDirectory)Autoasmver.targets" />
 
-  <Import Project="$(MSBuildThisFileDirectory)Autocopyright.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)AutoCopyright.targets" />
 
   <Import Project="$(MSBuildThisFileDirectory)PackageAssets.targets" />
 
