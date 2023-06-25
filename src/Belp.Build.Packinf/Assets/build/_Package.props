@@ -1,9 +1,7 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <Import Project="$(MSBuildThisFileDirectory)Imports\_Package.props\ImportBefore\*" Condition="Exists('$(MSBuildThisFileDirectory)Imports\_Package.props\ImportBefore\')" />
+  <Import Project="$(MSBuildThisFileDirectory)PackageAssets.props" />
 
-
-
-  <Import Project="$(MSBuildThisFileDirectory)Imports\_Package.props\ImportAfter\*" Condition="Exists('$(MSBuildThisFileDirectory)Imports\_Package.props\ImportAfter\')" />
+  <Import Project="$(MSBuildThisFileDirectory)SetPackageReadme.props" />
 
 </Project>

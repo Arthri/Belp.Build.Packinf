@@ -1,9 +1,5 @@
 <Project ToolsVersion="15.0" TreatAsLocalProperty="_CountBeforeREADME" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <Import Project="$(MSBuildThisFileDirectory)Imports\_Package.targets\ImportBefore\*" Condition="Exists('$(MSBuildThisFileDirectory)Imports\_Package.targets\ImportBefore\')" />
-
-
-
   <ItemGroup>
     <!--
       https://learn.microsoft.com/en-us/nuget/reference/errors-and-warnings/nu5128
@@ -14,6 +10,12 @@
 
 
 
-  <Import Project="$(MSBuildThisFileDirectory)Imports\_Package.targets\ImportAfter\*" Condition="Exists('$(MSBuildThisFileDirectory)Imports\_Package.targets\ImportAfter\')" />
+  <Import Project="$(MSBuildThisFileDirectory)Autoasmver.targets" />
+
+  <Import Project="$(MSBuildThisFileDirectory)Autocopyright.targets" />
+
+  <Import Project="$(MSBuildThisFileDirectory)PackageAssets.targets" />
+
+  <Import Project="$(MSBuildThisFileDirectory)SetPackageReadme.targets" />
 
 </Project>
