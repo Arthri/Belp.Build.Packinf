@@ -1,9 +1,5 @@
 <Project ToolsVersion="15.0" TreatAsLocalProperty="_contentfiles_any;_contentfiles_cs" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <Import Project="$(MSBuildThisFileDirectory)..\..\$(MSBuildThisFile)\ImportBefore\*" Condition="Exists('$(MSBuildThisFileDirectory)..\..\$(MSBuildThisFile)\ImportBefore\')" />
-
-
-
   <ItemGroup>
     <None Remove="@(PackageAssets)" />
     <None Include="@(PackageAssets)">
@@ -54,9 +50,5 @@
       </_PackageFiles>
     </ItemGroup>
   </Target>
-
-
-
-  <Import Project="$(MSBuildThisFileDirectory)..\..\$(MSBuildThisFile)\ImportAfter\*" Condition="Exists('$(MSBuildThisFileDirectory)..\..\$(MSBuildThisFile)\ImportAfter\')" />
 
 </Project>
