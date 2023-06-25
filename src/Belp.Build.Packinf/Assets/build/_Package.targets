@@ -10,6 +10,10 @@
 
 
 
+  <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\Autoasmver.targets" />
+
+  <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\AutoCopyright.targets" />
+
   <Import Project="$(MSBuildThisFileDirectory)PackageAssets.targets" />
 
   <Import Project="$(MSBuildThisFileDirectory)SetPackageReadme.targets" />
