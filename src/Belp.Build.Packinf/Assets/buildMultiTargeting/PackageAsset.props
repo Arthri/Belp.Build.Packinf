@@ -5,7 +5,10 @@
     <PackageAsset Include="Assets\**\*" Exclude="Assets\content\**\*" PackagePath="/">
       <BuildAction Condition="'%(Extension)' == '$(DefaultLanguageSourceExtension)'">Compile</BuildAction>
     </PackageAsset>
-    <PackageAsset Include="Assets\content\**\*" BuildAction="Content" />
+    <PackageAsset Include="Assets\content\**\*">
+      <BuildAction Condition="'%(Extension)' == '$(DefaultLanguageSourceExtension)'">Compile</BuildAction>
+      <BuildAction Condition="'%(BuildAction)' == ''">Content</BuildAction>
+    </PackageAsset>
   </ItemGroup>
 
 
