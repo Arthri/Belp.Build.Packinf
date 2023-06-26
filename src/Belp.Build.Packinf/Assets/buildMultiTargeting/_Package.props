@@ -2,4 +2,6 @@
 
   <Import Project="$(MSBuildThisFileDirectory)PackageAssets.props" />
 
+  <Import Project="$(MSBuildThisFileDirectory)SetPackageReadme.props" />
+
 </Project>

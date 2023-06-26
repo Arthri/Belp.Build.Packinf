@@ -6,4 +6,6 @@
 
   <Import Project="$(MSBuildThisFileDirectory)PackageAssets.targets" />
 
+  <Import Project="$(MSBuildThisFileDirectory)SetPackageReadme.targets" />
+
 </Project>

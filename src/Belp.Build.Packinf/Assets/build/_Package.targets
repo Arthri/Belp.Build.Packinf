@@ -15,8 +15,9 @@
   <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\AutoCopyright.targets" />
 
   <!-- Imports only on single-targeting builds -->
-  <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\PackageAssets.targets" Condition="'$(TargetFrameworks)' == ''" />
-
-  <Import Project="$(MSBuildThisFileDirectory)SetPackageReadme.targets" />
+  <ImportGroup Condition="'$(TargetFrameworks)' == ''">
+    <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\PackageAssets.targets" />
+    <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\SetPackageReadme.targets" />
+  </ImportGroup>
 
 </Project>
