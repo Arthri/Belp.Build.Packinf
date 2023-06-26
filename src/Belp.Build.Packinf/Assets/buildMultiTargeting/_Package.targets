@@ -4,4 +4,6 @@
 
   <Import Project="$(MSBuildThisFileDirectory)AutoCopyright.targets" />
 
+  <Import Project="$(MSBuildThisFileDirectory)PackageAssets.targets" />
+
 </Project>
