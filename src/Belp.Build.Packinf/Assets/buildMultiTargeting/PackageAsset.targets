@@ -43,7 +43,7 @@
   -->
   <Target Name="_SetPackagePathForContentFiles" AfterTargets="_GetPackageFiles">
     <ItemGroup>
-      <_PackageFiles Condition="'%(_PackageFiles.PackagePath)' != '' And '%(_PackageFiles.FixedContentFilesPath)' != 'true'">
+      <_PackageFiles Condition="'%(_PackageFiles.ItemSource)' == 'PackageAsset' And '%(_PackageFiles.PackagePath)' != '' And '%(_PackageFiles.FixedContentFilesPath)' != 'true'">
         <PackagePath Condition="'%(_PackageFiles.BuildAction)' == 'Compile'">$([System.Text.RegularExpressions.Regex]::Replace('%(_PackageFiles.PackagePath)', '(?&lt;=\A|;)contentFiles[/\\]*(?=;|\Z)', '$(_contentFiles_cs)'))</PackagePath>
         <PackagePath Condition="'%(_PackageFiles.BuildAction)' != 'Compile'">$([System.Text.RegularExpressions.Regex]::Replace('%(_PackageFiles.PackagePath)', '(?&lt;=\A|;)contentFiles[/\\]*(?=;|\Z)', '$(_contentFiles_any)'))</PackagePath>
         <FixedContentFilesPath>true</FixedContentFilesPath>
