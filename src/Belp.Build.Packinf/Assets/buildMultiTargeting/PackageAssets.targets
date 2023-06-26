@@ -6,7 +6,7 @@
       <ItemSource>PackageAssets</ItemSource>
       <Pack>true</Pack>
 
-      <PackagePath Condition="'%(Filename)' == '_Package' And '%(PackagePath)' == ''">content;contentfiles</PackagePath>
+      <PackagePath Condition="'%(PackagePath)' == ''">content;contentfiles</PackagePath>
       <PackagePath Condition="'%(Filename)' == '_Package'">$([System.Text.RegularExpressions.Regex]::Replace('%(PackagePath)', '(?&lt;=[^;])(?=;|\Z)', '%(RecursiveDir)$(PackageId)%(Extension)'))</PackagePath>
 
       <!-- If RelativeDir is rooted then use it -->
