@@ -2,9 +2,9 @@
 
   <!-- Configure default package assets -->
   <ItemGroup Condition="'$(EnableDefaultPackItems)' != 'false'">
-    <PackageAssets Include="Assets\**\*" PackagePath="/">
+    <PackageAsset Include="Assets\**\*" PackagePath="/">
       <BuildAction Condition="'%(BuildAction)' == '' And '%(Filename)' == '$(DefaultLanguageSourceExtension)'">Compile</BuildAction>
-    </PackageAssets>
+    </PackageAsset>
   </ItemGroup>
 
 
