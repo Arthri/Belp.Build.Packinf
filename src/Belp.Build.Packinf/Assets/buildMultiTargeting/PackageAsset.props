@@ -3,7 +3,7 @@
   <!-- Configure default package assets -->
   <ItemGroup Condition="'$(EnableDefaultPackItems)' != 'false'">
     <PackageAsset Include="Assets\**\*" Exclude="Assets\content\**\*" PackagePath="/">
-      <BuildAction Condition="'%(Filename)' == '$(DefaultLanguageSourceExtension)'">Compile</BuildAction>
+      <BuildAction Condition="'%(Extension)' == '$(DefaultLanguageSourceExtension)'">Compile</BuildAction>
     </PackageAsset>
     <PackageAsset Include="Assets\content\**\*" BuildAction="Content" />
   </ItemGroup>
