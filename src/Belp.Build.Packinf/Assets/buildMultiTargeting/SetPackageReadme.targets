@@ -1,4 +1,4 @@
-<Project InitialTargets="_TryFindReadmeFromRepositoryRoot;SetPackageReadmeFile" ToolsVersion="15.0" TreatAsLocalProperty="_UsedReadmeFullPath" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project InitialTargets="_TryFindReadmeFromRepositoryRoot;SetPackageReadmeFile" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <!-- Check and raise diagnostics for README configuration. -->
   <Target Name="_CheckReadmeConfiguration" Condition="'$(PackageReadmeFile)' == ''">
@@ -9,14 +9,7 @@
   <Target Name="SetPackageReadmeFile" Condition="'$(PackageReadmeFile)' == '' And '@(PackageReadme)' != ''" DependsOnTargets="_CheckReadmeConfiguration">
     <PropertyGroup>
       <PackageReadmeFile>%(PackageReadme.Filename)%(PackageReadme.Extension)</PackageReadmeFile>
-      <_UsedReadmeFullPath>%(PackageReadme.FullPath)</_UsedReadmeFullPath>
     </PropertyGroup>
-  </Target>
-
-  <Target Name="_PackUsedReadme" Condition="'$(_UsedReadmeFullPath)' != ''" AfterTargets="SetPackageReadmeFile">
-    <ItemGroup>
-      <None Include="$(_UsedReadmeFullPath)" Pack="true" PackagePath="$([System.IO.Path]::GetFileName('$(_UsedReadmeFullPath)'))" />
-    </ItemGroup>
   </Target>
 
 
