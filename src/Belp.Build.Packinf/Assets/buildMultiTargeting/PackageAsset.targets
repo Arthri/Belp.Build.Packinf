@@ -1,0 +1,54 @@
+<Project ToolsVersion="15.0" TreatAsLocalProperty="_contentFiles_any;_contentFiles_cs" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <ItemGroup>
+    <None Remove="@(PackageAsset)" />
+    <None Include="@(PackageAsset)">
+      <ItemSource>PackageAsset</ItemSource>
+      <Pack>true</Pack>
+
+      <PackagePath Condition="'%(PackagePath)' == ''">content;contentFiles</PackagePath>
+      <PackagePath Condition="'%(Filename)' == '_Package'">$([System.Text.RegularExpressions.Regex]::Replace('%(PackagePath)', '(?&lt;=[^;])(?=;|\Z)', '%(RecursiveDir)$(PackageId)%(Extension)'))</PackagePath>
+
+      <!-- If RelativeDir is rooted then use it -->
+      <RootFolder Condition="$([System.IO.Path]::IsPathRooted('%(RelativeDir)'))">%(RelativeDir)</RootFolder>
+      <!-- Otherwise root it -->
+      <RootFolder Condition="'%(RootFolder)' == ''">$([System.IO.Path]::GetFullPath('$([System.IO.Path]::Combine('$(MSBuildProjectDirectory)', '%(RelativeDir)'))'))</RootFolder>
+    </None>
+  </ItemGroup>
+
+
+
+  <!-- Fix PackagePaths containing contentFiles/. -->
+  <!-- Pre-generate paths for contentFiles. -->
+  <Choose>
+    <When Condition="'$(TargetFrameworks)' == ''">
+      <PropertyGroup>
+        <_contentFiles_any>contentFiles/any/$(TargetFramework)/</_contentFiles_any>
+        <_contentFiles_cs>contentFiles/cs/$(TargetFramework)/</_contentFiles_cs>
+      </PropertyGroup>
+    </When>
+
+    <Otherwise>
+      <PropertyGroup>
+        <_contentFiles_any>$([System.Text.RegularExpressions.Regex]::Replace('$(TargetFrameworks)', '(?&lt;=\A|;)[^;]+(?=;|\Z)', 'contentFiles/any/$0/'))</_contentFiles_any>
+        <_contentFiles_cs>$([System.Text.RegularExpressions.Regex]::Replace('$(TargetFrameworks)', '(?&lt;=\A|;)[^;]+(?=;|\Z)', 'contentFiles/cs/$0/'))</_contentFiles_cs>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+
+  <!--
+    NuGet only implements contentFiles for packages without
+    an explicitly PackagePath. For files with such, it must
+    be reimplemented.
+  -->
+  <Target Name="_SetPackagePathForContentFiles" AfterTargets="_GetPackageFiles">
+    <ItemGroup>
+      <_PackageFiles Condition="'%(_PackageFiles.ItemSource)' == 'PackageAsset' And '%(_PackageFiles.PackagePath)' != '' And '%(_PackageFiles.FixedContentFilesPath)' != 'true'">
+        <PackagePath Condition="'%(_PackageFiles.BuildAction)' == 'Compile'">$([System.Text.RegularExpressions.Regex]::Replace('%(_PackageFiles.PackagePath)', '(?&lt;=\A|;)contentFiles[/\\]*(?=;|\Z)', '$(_contentFiles_cs)'))</PackagePath>
+        <PackagePath Condition="'%(_PackageFiles.BuildAction)' != 'Compile'">$([System.Text.RegularExpressions.Regex]::Replace('%(_PackageFiles.PackagePath)', '(?&lt;=\A|;)contentFiles[/\\]*(?=;|\Z)', '$(_contentFiles_any)'))</PackagePath>
+        <FixedContentFilesPath>true</FixedContentFilesPath>
+      </_PackageFiles>
+    </ItemGroup>
+  </Target>
+
+</Project>
