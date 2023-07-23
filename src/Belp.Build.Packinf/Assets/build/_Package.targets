@@ -10,14 +10,10 @@
 
 
 
-  <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\Autoasmver.targets" />
+  <Import Condition="'$(TargetFrameworks)' == ''" Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\SingleOrOuter.targets" />
 
-  <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\AutoCopyright.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\SingleOrInner.targets" />
 
-  <!-- Imports only on single-targeting builds -->
-  <ImportGroup Condition="'$(TargetFrameworks)' == ''">
-    <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\PackageAsset.targets" />
-    <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\SetPackageReadme.targets" />
-  </ImportGroup>
+  <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\SingleOrInnerOrOuter.targets" />
 
 </Project>

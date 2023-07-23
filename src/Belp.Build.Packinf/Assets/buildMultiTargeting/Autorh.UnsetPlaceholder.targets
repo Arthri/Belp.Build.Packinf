@@ -1,0 +1,15 @@
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup Condition="'$(Authors)' == '&#x200B;%27%22%3C%3E%3C/%3E%26%22%27 AUTHORS PLACEHOLDER'">
+    <_AuthorsExplicitlySet>false</_AuthorsExplicitlySet>
+    <Authors Condition="'$(DisableAutorh)' != 'true'"></Authors>
+    <Authors Condition="'$(DisableAutorh)' == 'true'">$(AssemblyName)</Authors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Company)' == '&#x200B;%27%22%3C%3E%3C/%3E%26%22%27 AUTHORS PLACEHOLDER'">
+    <_CompanyExplicitlySet>false</_CompanyExplicitlySet>
+    <Company Condition="'$(DisableAutorh)' != 'true'"></Company>
+    <Company Condition="'$(DisableAutorh)' == 'true'">$(AssemblyName)</Company>
+  </PropertyGroup>
+
+</Project>

@@ -57,13 +57,21 @@ By default, all files inside `Assets/` will be packed. This behavior can be disa
 Files that are named `README`(case-insensitive) and are placed beside the project will be packed as the package's README file. If no READMEs are present beside the project, and SourceLink is installed in the project, the file named `README.md` at the repository's root(if present) will be used instead. Only one README should be defined.
 
 ### Autoasmver
-Autoasmver is enabled by default. It will automatically set the assembly version of compiled assemblies to `Major.0.0.0`. Set `$(DisableAutoasmver)` to `true` to disable Autoasmver.
+Enabled by default, can be disabled by setting `$(DisableAutoasmver)` to `true`. Autoasmver will automatically set the assembly version of compiled assemblies to `Major.0.0.0`. Set `$(DisableAutoasmver)` to `true` to disable Autoasmver.
 
-### Autocopyright
-Autocopyright is enabled by default. Autocopyright makes it easier to define the copyright. For example, the configuration below will result in the copyright notice `Copyright (C) 2023 Arthri.\nAll Rights Reserved`
+### AutoCopyright
+Enabled by default, can be disabled by setting `$(DisableAutoCopyright)` to `true`. AutoCopyright makes it easier to define the copyright. For example, the configuration below will result in the copyright notice `Copyright (C) 2023 Arthri.\nAll Rights Reserved`
 ```xml
   <ItemGroup>
     <CopyrightOwner Include="Arthri" Years="2023" />
+  </ItemGroup>
+```
+
+### Autorh
+Enabled by default, can be disabled by setting `$(DisableAutorh)` to `true`. Autorh makes it easier to define authors. By default, all copyright owners are included as authors, so authors wouldn't need to be redefined. To opt-out of this feature, set the property `$(IncludeCopyrightOwnersInAuthors)` to `false` or exclude only some copyright owners by using the property `$(DefaultAuthorCopyrightOwnerExcludes)`. The following example adds "John Doe" as an author, but does not include them in the copyright notice.
+```xml
+  <ItemGroup>
+    <Author Include="John Doe" />
   </ItemGroup>
 ```
 

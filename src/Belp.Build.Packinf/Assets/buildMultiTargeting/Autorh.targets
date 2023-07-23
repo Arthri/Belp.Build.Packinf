@@ -1,0 +1,27 @@
+<Project InitialTargets="_CheckAutorhErrors;_IncludeCopyrightOwnersInAuthors" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Authors is undefined and author generation is enabled -->
+  <PropertyGroup Condition="'$(Authors)' == '' And '$(DisableAutorh)' != 'true'">
+    <AuthorsGenerated>true</AuthorsGenerated>
+    <Authors>@(Author, ' ')</Authors>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Company Condition="'$(Company)' == ''">$(Authors)</Company>
+  </PropertyGroup>
+
+  <Target Name="_IncludeCopyrightOwnersInAuthors" Condition="'$(AuthorsGenerated)' == 'true' And '$(IncludeCopyrightOwnersInAuthors)' != 'false' And '@(CopyrightOwner)' != ''">
+    <ItemGroup>
+      <Author Include="@(CopyrightOwner)" Exclude="$(DefaultAuthorCopyrightOwnerExcludes)" KeepDuplicates="false" RemoveMetadata="true" />
+    </ItemGroup>
+  </Target>
+
+
+
+  <Target Name="_CheckAutorhErrors">
+    <Warning Code="BLP4007" Text="Authors is explicitly defined while authors generation is enabled. Remove explicitly defined authors, disable Autorh(set %24(DisableAutorh) to true), or uninstall Packinf to manually define authors." Condition="'$(DisableAutorh)' != 'true' And '$(Authors)' != '' And '$(AuthorsGenerated)' != 'true'" />
+    <Warning Code="BLP4008" Text="Authors is not defined and authors generation is disabled. Enable Autorh(set %24(DisableAutorh) to false), explicitly define the authors, or disable required authors(set %24(RequireAuthors) to false)." Condition="'$(DisableAutorh)' == 'true' And '$(Authors)' == '' And '$(RequireAuthors)' != 'false'" />
+    <Error Code="BLP4009" Text="No authors defined." Condition="'$(DisableAutorh)' != 'true' And '@(Author)' == '' And ('$(IncludeCopyrightOwnersInAuthors)' == 'false' Or '@(CopyrightOwner)' == '')" />
+  </Target>
+
+</Project>
