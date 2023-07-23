@@ -67,6 +67,14 @@ Enabled by default, can be disabled by setting `$(DisableAutoCopyright)` to `tru
   </ItemGroup>
 ```
 
+### Autorh
+Enabled by default, can be disabled by setting `$(DisableAutorh)` to `true`. Autorh makes it easier to define authors. By default, all copyright owners are included as authors, so authors wouldn't need to be redefined. To opt-out of this feature, set the property `$(IncludeCopyrightOwnersInAuthors)` to `false` or exclude only some copyright owners by using the property `$(DefaultAuthorCopyrightOwnerExcludes)`. The following example adds "John Doe" as an author, but does not include them in the copyright notice.
+```xml
+  <ItemGroup>
+    <Author Include="John Doe" />
+  </ItemGroup>
+```
+
 ## Development
 
 ### Prerequisites
