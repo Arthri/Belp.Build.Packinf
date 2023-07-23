@@ -4,7 +4,7 @@
 
   <Import Project="$(MSBuildThisFileDirectory)AutoCopyright.targets" />
 
-  <Import Project="$(MSBuildThisFileDirectory)PackageAsset.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)PackageAssets.targets" />
 
   <Import Project="$(MSBuildThisFileDirectory)SetPackageReadme.targets" />
 

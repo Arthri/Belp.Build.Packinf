@@ -16,7 +16,7 @@
 
   <!-- Imports only on single-targeting builds -->
   <ImportGroup Condition="'$(TargetFrameworks)' == ''">
-    <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\PackageAsset.targets" />
+    <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\PackageAssets.targets" />
     <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\SetPackageReadme.targets" />
   </ImportGroup>
 
