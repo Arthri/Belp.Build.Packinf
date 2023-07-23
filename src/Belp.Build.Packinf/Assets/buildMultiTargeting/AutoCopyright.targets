@@ -10,8 +10,8 @@
 
   <!-- Raise configuration errors -->
   <Target Name="_CheckAutoCopyrightErrors">
-    <Warning Code="BLP4002" Text="Copyright notice is explicitly defined while copyright generation is enabled. Remove explicitly defined copyright notice, uninstall Packinf, or disable Autocopyright(set %24(DisableAutoCopyright) to true) to manually define copyright." Condition="'$(DisableAutoCopyright)' != 'true' And '$(Copyright)' != '' And '$(CopyrightGenerated)' != 'true'" />
-    <Warning Code="BLP4003" Text="Copyright notice is not defined while copyright generation is disabled. Enable Autocopyright(set %24(DisableAutoCopyright) to false), disable required copyright(set %24(RequireCopyrightNotice) to false), or explicitly define the copyright notice." Condition="'$(DisableAutoCopyright)' == 'true' And '$(RequireCopyrightNotice)' != 'false' And '$(Copyright)' == ''" />
+    <Warning Code="BLP4002" Text="Copyright notice is explicitly defined while copyright generation is enabled. Remove explicitly defined copyright notice, uninstall Packinf, or disable AutoCopyright(set %24(DisableAutoCopyright) to true) to manually define copyright." Condition="'$(DisableAutoCopyright)' != 'true' And '$(Copyright)' != '' And '$(CopyrightGenerated)' != 'true'" />
+    <Warning Code="BLP4003" Text="Copyright notice is not defined and copyright generation is disabled. Enable AutoCopyright(set %24(DisableAutoCopyright) to false), explicitly define the copyright notice, or disable required copyright(set %24(RequireCopyrightNotice) to false)." Condition="'$(DisableAutoCopyright)' == 'true' And '$(RequireCopyrightNotice)' != 'false' And '$(Copyright)' == ''" />
     <Error Code="BLP4004" Text="No copyright owners defined." Condition="'$(DisableAutoCopyright)' != 'true' And '@(CopyrightOwner)' == ''" />
     <Error Code="BLP4005" Text="No copyrightable years defined for copyright owner &quot;%(CopyrightOwner.Identity)&quot;." Condition="'%(CopyrightOwner.Years)' == ''" />
   </Target>

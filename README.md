@@ -59,8 +59,8 @@ Files that are named `README`(case-insensitive) and are placed beside the projec
 ### Autoasmver
 Enabled by default, can be disabled by setting `$(DisableAutoasmver)` to `true`. It will automatically set the assembly version of compiled assemblies to `Major.0.0.0`. Set `$(DisableAutoasmver)` to `true` to disable Autoasmver.
 
-### Autocopyright
-Enabled by default, can be disabled by setting `$(DisableAutoCopyright)` to `true`. Autocopyright makes it easier to define the copyright. For example, the configuration below will result in the copyright notice `Copyright (C) 2023 Arthri.\nAll Rights Reserved`
+### AutoCopyright
+Enabled by default, can be disabled by setting `$(DisableAutoCopyright)` to `true`. AutoCopyright makes it easier to define the copyright. For example, the configuration below will result in the copyright notice `Copyright (C) 2023 Arthri.\nAll Rights Reserved`
 ```xml
   <ItemGroup>
     <CopyrightOwner Include="Arthri" Years="2023" />
