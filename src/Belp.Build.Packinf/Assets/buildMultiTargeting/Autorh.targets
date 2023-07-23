@@ -3,7 +3,7 @@
   <!-- Authors is undefined and author generation is enabled -->
   <PropertyGroup Condition="'$(Authors)' == '' And '$(DisableAutorh)' != 'true'">
     <AuthorsGenerated>true</AuthorsGenerated>
-    <Authors>@(Author, ' ')</Authors>
+    <Authors>@(Author, ', ')</Authors>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -12,7 +12,7 @@
 
   <Target Name="_IncludeCopyrightOwnersInAuthors" Condition="'$(AuthorsGenerated)' == 'true' And '$(IncludeCopyrightOwnersInAuthors)' != 'false' And '@(CopyrightOwner)' != ''">
     <ItemGroup>
-      <Author Include="@(CopyrightOwner)" Exclude="$(DefaultAuthorCopyrightOwnerExcludes)" KeepDuplicates="false" RemoveMetadata="true" />
+      <Author Include="@(CopyrightOwner)" Exclude="$(DefaultAuthorCopyrightOwnerExcludes);@(Author)" KeepDuplicates="false" ItemSource="CopyrightOwner" />
     </ItemGroup>
   </Target>
 
