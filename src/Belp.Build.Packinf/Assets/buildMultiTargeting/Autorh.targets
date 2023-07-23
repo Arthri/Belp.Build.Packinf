@@ -1,7 +1,7 @@
 <Project InitialTargets="_CheckAutorhErrors;_IncludeCopyrightOwnersInAuthors" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
-    <Authors Condition="'$(Authors)' == '&apos;&quot;&lt;&gt;&lt;/&gt;&amp;&quot;&apos; AUTHORS PLACEHOLDER'"></Authors>
+    <Authors Condition="'$(Authors)' == '%27%22%3C%3E%3C/%3E%26%22%27 AUTHORS PLACEHOLDER'"></Authors>
   </PropertyGroup>
 
   <!-- Authors is undefined and author generation is enabled -->
