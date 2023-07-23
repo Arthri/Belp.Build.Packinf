@@ -9,7 +9,6 @@
   <!-- Package Information -->
   <PropertyGroup>
     <AddMetapackagePlaceholderLibrary>true</AddMetapackagePlaceholderLibrary>
-    <Authors>Arthri</Authors>
     <Description>A package that extends MSBuild to make it easier to make NuGet packages.</Description>
     <DevelopmentDependency>true</DevelopmentDependency>
     <DisableAutoasmver>true</DisableAutoasmver>
