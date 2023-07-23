@@ -5,7 +5,7 @@
       Used to determine if Authors was set in the project
       or in Microsoft.NET.DefaultAssemblyInfo.targets
     -->
-    <Authors>'"&lt;&gt;&lt;/&gt;&amp;"' AUTHORS PLACEHOLDER</Authors>
+    <Authors>&#x200B;'"&lt;&gt;&lt;/&gt;&amp;"' AUTHORS PLACEHOLDER</Authors>
   </PropertyGroup>
 
 </Project>
