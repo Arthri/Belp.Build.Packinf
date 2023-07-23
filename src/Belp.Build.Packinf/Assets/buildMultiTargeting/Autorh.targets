@@ -8,18 +8,22 @@
         <Authors>@(Author, ' ')</Authors>
       </PropertyGroup>
 
-      <Choose Condition="'$(IncludeCopyrightOwnersInAuthors)' != 'false' And '@(CopyrightOwner)' != ''">
-        <When Condition="'@(Author)' != ''">
-          <PropertyGroup>
-            <_RequireCopyrightOwnersTarget>true</_RequireCopyrightOwnersTarget>
-          </PropertyGroup>
+      <Choose>
+        <When Condition="'$(IncludeCopyrightOwnersInAuthors)' != 'false' And '@(CopyrightOwner)' != ''">
+          <Choose>
+            <When Condition="'@(Author)' != ''">
+              <PropertyGroup>
+                <_RequireCopyrightOwnersTarget>true</_RequireCopyrightOwnersTarget>
+              </PropertyGroup>
+            </When>
+    
+            <Otherwise>
+              <ItemGroup>
+                <Author Include="@(CopyrightOwner)" Exclude="$(DefaultAuthorCopyrightOwnerExcludes)" />
+              </ItemGroup>
+            </Otherwise>
+          </Choose>
         </When>
-
-        <Otherwise>
-          <ItemGroup>
-            <Author Include="@(CopyrightOwner)" Exclude="$(DefaultAuthorCopyrightOwnerExcludes)" />
-          </ItemGroup>
-        </Otherwise>
       </Choose>
     </When>
   </Choose>
