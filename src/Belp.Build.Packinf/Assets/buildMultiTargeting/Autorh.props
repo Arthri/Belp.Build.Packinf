@@ -1,0 +1,11 @@
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <!--
+      Used to determine if Authors was set in the project
+      or in Microsoft.NET.DefaultAssemblyInfo.targets
+    -->
+    <Authors>'"&lt;&gt;&lt;/&gt;&amp;"' AUTHORS PLACEHOLDER</Authors>
+  </PropertyGroup>
+
+</Project>

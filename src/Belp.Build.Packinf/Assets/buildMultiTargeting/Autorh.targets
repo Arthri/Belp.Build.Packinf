@@ -1,34 +1,16 @@
-<Project InitialTargets="_CheckAutorhErrors;_IncludeCopyrightOwnersInAuthors" ToolsVersion="15.0" TreatAsLocalProperty="_RequireCopyrightOwnersTarget" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project InitialTargets="_CheckAutorhErrors;_IncludeCopyrightOwnersInAuthors" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <Choose>
-    <!-- Authors is undefined and author generation is enabled -->
-    <When Condition="'$(Authors)' == '' And '$(DisableAutorh)' != 'true'">
-      <PropertyGroup>
-        <AuthorsGenerated>true</AuthorsGenerated>
-        <Authors>@(Author, ' ')</Authors>
-      </PropertyGroup>
+  <PropertyGroup>
+    <Authors Condition="'$(Authors)' == '&apos;&quot;&lt;&gt;&lt;/&gt;&amp;&quot;&apos; AUTHORS PLACEHOLDER'"></Authors>
+  </PropertyGroup>
 
-      <Choose>
-        <When Condition="'$(IncludeCopyrightOwnersInAuthors)' != 'false' And '@(CopyrightOwner)' != ''">
-          <Choose>
-            <When Condition="'@(Author)' != ''">
-              <PropertyGroup>
-                <_RequireCopyrightOwnersTarget>true</_RequireCopyrightOwnersTarget>
-              </PropertyGroup>
-            </When>
-    
-            <Otherwise>
-              <ItemGroup>
-                <Author Include="@(CopyrightOwner)" Exclude="$(DefaultAuthorCopyrightOwnerExcludes)" />
-              </ItemGroup>
-            </Otherwise>
-          </Choose>
-        </When>
-      </Choose>
-    </When>
-  </Choose>
+  <!-- Authors is undefined and author generation is enabled -->
+  <PropertyGroup Condition="'$(Authors)' == '' And '$(DisableAutorh)' != 'true'">
+    <AuthorsGenerated>true</AuthorsGenerated>
+    <Authors>@(Author, ' ')</Authors>
+  </PropertyGroup>
 
-  <Target Name="_IncludeCopyrightOwnersInAuthors" Condition="'$(_RequireCopyrightOwnersTarget)' == 'true'">
+  <Target Name="_IncludeCopyrightOwnersInAuthors" Condition="'$(AuthorsGenerated)' == 'true' And '$(IncludeCopyrightOwnersInAuthors)' != 'false' And '@(CopyrightOwner)' != ''">
     <ItemGroup>
       <Author Include="@(CopyrightOwner)" Exclude="$(DefaultAuthorCopyrightOwnerExcludes)" KeepDuplicates="false" RemoveMetadata="true" />
     </ItemGroup>
