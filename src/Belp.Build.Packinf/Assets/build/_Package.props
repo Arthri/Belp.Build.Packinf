@@ -1,9 +1,9 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <!-- Imports only on single-targeting builds -->
-  <ImportGroup Condition="'$(TargetFramework)' == ''">
-    <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\PackageAssets.props" />
-    <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\SetPackageReadme.props" />
-  </ImportGroup>
+  <Import Condition="'$(TargetFramework)' == ''" Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\SingleOrOuter.props" />
+
+  <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\SingleOrInner.props" />
+
+  <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\SingleOrInnerOrOuter.props" />
 
 </Project>

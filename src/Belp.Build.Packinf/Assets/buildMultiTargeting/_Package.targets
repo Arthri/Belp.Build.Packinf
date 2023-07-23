@@ -1,13 +1,7 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <Import Project="$(MSBuildThisFileDirectory)Autoasmver.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)SingleOrOuter.targets" />
 
-  <Import Project="$(MSBuildThisFileDirectory)AutoCopyright.targets" />
-
-  <Import Project="$(MSBuildThisFileDirectory)Autorh.targets" />
-
-  <Import Project="$(MSBuildThisFileDirectory)PackageAssets.targets" />
-
-  <Import Project="$(MSBuildThisFileDirectory)SetPackageReadme.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)SingleOrInnerOrOuter.targets" />
 
 </Project>
