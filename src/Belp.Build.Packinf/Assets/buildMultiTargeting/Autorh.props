@@ -6,6 +6,9 @@
       or in Microsoft.NET.DefaultAssemblyInfo.targets
     -->
     <Authors>&#x200B;'"&lt;&gt;&lt;/&gt;&amp;"' AUTHORS PLACEHOLDER</Authors>
+
+    <BeforeTargetFrameworkInferenceTargets>$(BeforeTargetFrameworkInferenceTargets);$(MSBuildThisFileDirectory)Autorh.UnsetPlaceholder.targets</BeforeTargetFrameworkInferenceTargets>
+    <CustomBeforeMicrosoftCommonCrossTargetingTargets>$(CustomBeforeMicrosoftCommonCrossTargetingTargets);$(MSBuildThisFileDirectory)Autorh.UnsetPlaceholder.targets</CustomBeforeMicrosoftCommonCrossTargetingTargets>
   </PropertyGroup>
 
 </Project>

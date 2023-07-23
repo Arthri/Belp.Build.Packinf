@@ -1,13 +1,13 @@
 <Project InitialTargets="_CheckAutorhErrors;_IncludeCopyrightOwnersInAuthors" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <PropertyGroup>
-    <Authors Condition="'$(Authors)' == '&#x200B;%27%22%3C%3E%3C/%3E%26%22%27 AUTHORS PLACEHOLDER'"></Authors>
-  </PropertyGroup>
-
   <!-- Authors is undefined and author generation is enabled -->
   <PropertyGroup Condition="'$(Authors)' == '' And '$(DisableAutorh)' != 'true'">
     <AuthorsGenerated>true</AuthorsGenerated>
     <Authors>@(Author, ' ')</Authors>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Company Condition="'$(Company)' == ''">$(Authors)</Company>
   </PropertyGroup>
 
   <Target Name="_IncludeCopyrightOwnersInAuthors" Condition="'$(AuthorsGenerated)' == 'true' And '$(IncludeCopyrightOwnersInAuthors)' != 'false' And '@(CopyrightOwner)' != ''">
