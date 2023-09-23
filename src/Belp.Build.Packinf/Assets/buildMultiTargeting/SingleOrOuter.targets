@@ -4,4 +4,18 @@
 
   <Import Project="$(MSBuildThisFileDirectory)SetPackageReadme.targets" />
 
+
+
+  <!-- Automatically clears cache and pushes packages to local NuGet source  -->
+  <Target Name="_ClearCacheAndPushPackage" Condition="'$(PushPackageToDev)' == 'true'" DependsOnTargets="Pack" AfterTargets="Pack">
+    <Error Condition="'$(NuGetPackageRoot)' == ''" Text="%24%28NuGetPackageRoot%29 is undefined" />
+    <Error Condition="'$(PackageId)' == ''" Text="%24%28PackageId%29 is undefined" />
+    <RemoveDir Directories="$(NuGetPackageRoot)\$(PackageId.ToLower())" />
+
+    <ItemGroup>
+      <_NuGetPackages Include="@(NuGetPackOutput)" Condition="'%(Extension)' == '.nupkg'" />
+    </ItemGroup>
+    <Exec LogStandardErrorAsError="true" StandardOutputImportance="High" Command="dotnet nuget push &quot;@(_NuGetPackages, '&quot; &quot;')&quot; -s $([MSBuild]::ValueOrDefault('$(DevPackageSource)', 'tmp'))" />
+  </Target>
+
 </Project>
