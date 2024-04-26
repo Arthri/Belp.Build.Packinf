@@ -1,4 +1,4 @@
-<Project InitialTargets="_CheckAutoCopyrightErrors;_CheckAutoCopyrightErrors_Disabled" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project InitialTargets="_CheckAutoCopyrightErrors;_CheckAutoCopyrightErrors_Disabled;_CheckCopyrightOwnerErrors" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <!-- Copyright is undefined and copyright generation is enabled -->
   <PropertyGroup Condition="'$(Copyright)' == '' And '$(DisableAutoCopyright)' != 'true'">
@@ -12,6 +12,9 @@
   <Target Name="_CheckAutoCopyrightErrors" Condition="'$(DisableAutoCopyright)' != 'true'">
     <Warning Code="BLP4002" Text="Copyright notice is explicitly defined while copyright generation is enabled. Remove explicitly defined copyright notice, disable AutoCopyright(set %24(DisableAutoCopyright) to true), or uninstall Packinf to manually define copyright." Condition="'$(Copyright)' != '' And '$(CopyrightGenerated)' != 'true'" />
     <Error Code="BLP4004" Text="No copyright owners defined." Condition="'@(CopyrightOwner)' == ''" />
+  </Target>
+
+  <Target Name="_CheckCopyrightOwnerErrors" Condition="'@(CopyrightOwner)' != ''">
     <Error Code="BLP4005" Text="No copyrightable years defined for copyright owner &quot;%(CopyrightOwner.Identity)&quot;." Condition="'%(CopyrightOwner.Years)' == ''" />
   </Target>
 
