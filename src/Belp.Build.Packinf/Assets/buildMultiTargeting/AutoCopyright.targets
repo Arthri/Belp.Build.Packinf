@@ -1,4 +1,4 @@
-<Project InitialTargets="_CheckAutoCopyrightErrors" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project InitialTargets="_CheckAutoCopyrightErrors;_CheckAutoCopyrightErrors_Disabled" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <!-- Copyright is undefined and copyright generation is enabled -->
   <PropertyGroup Condition="'$(Copyright)' == '' And '$(DisableAutoCopyright)' != 'true'">
@@ -9,11 +9,14 @@
 
 
   <!-- Raise configuration errors -->
-  <Target Name="_CheckAutoCopyrightErrors">
-    <Warning Code="BLP4002" Text="Copyright notice is explicitly defined while copyright generation is enabled. Remove explicitly defined copyright notice, disable AutoCopyright(set %24(DisableAutoCopyright) to true), or uninstall Packinf to manually define copyright." Condition="'$(DisableAutoCopyright)' != 'true' And '$(Copyright)' != '' And '$(CopyrightGenerated)' != 'true'" />
-    <Warning Code="BLP4003" Text="Copyright notice is not defined and copyright generation is disabled. Enable AutoCopyright(set %24(DisableAutoCopyright) to false), explicitly define the copyright notice, or disable required copyright(set %24(RequireCopyrightNotice) to false)." Condition="'$(DisableAutoCopyright)' == 'true' And '$(RequireCopyrightNotice)' != 'false' And '$(Copyright)' == ''" />
-    <Error Code="BLP4004" Text="No copyright owners defined." Condition="'$(DisableAutoCopyright)' != 'true' And '@(CopyrightOwner)' == ''" />
+  <Target Name="_CheckAutoCopyrightErrors" Condition="'$(DisableAutoCopyright)' != 'true'">
+    <Warning Code="BLP4002" Text="Copyright notice is explicitly defined while copyright generation is enabled. Remove explicitly defined copyright notice, disable AutoCopyright(set %24(DisableAutoCopyright) to true), or uninstall Packinf to manually define copyright." Condition="'$(Copyright)' != '' And '$(CopyrightGenerated)' != 'true'" />
+    <Error Code="BLP4004" Text="No copyright owners defined." Condition="'@(CopyrightOwner)' == ''" />
     <Error Code="BLP4005" Text="No copyrightable years defined for copyright owner &quot;%(CopyrightOwner.Identity)&quot;." Condition="'%(CopyrightOwner.Years)' == ''" />
+  </Target>
+
+  <Target Name="_CheckAutoCopyrightErrors_Disabled" Condition="'$(DisableAutoCopyright)' == 'true'">
+    <Warning Code="BLP4003" Text="Copyright notice is not defined and copyright generation is disabled. Enable AutoCopyright(set %24(DisableAutoCopyright) to false), explicitly define the copyright notice, or disable required copyright(set %24(RequireCopyrightNotice) to false)." Condition="'$(RequireCopyrightNotice)' != 'false' And '$(Copyright)' == ''" />
   </Target>
 
 </Project>
