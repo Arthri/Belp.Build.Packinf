@@ -7,10 +7,8 @@ using Xunit;
 
 namespace Belp.Build.Packinf.UnitTests;
 
-[Collection("AutoCopyright")]
 public class AutoCopyrightTests
 {
-    [Collection("AutoCopyright")]
     public class Enabled
     {
         [Fact]
@@ -104,7 +102,6 @@ public class AutoCopyrightTests
         }
     }
 
-    [Collection("AutoCopyright")]
     public class Disabled
     {
         [Fact]
