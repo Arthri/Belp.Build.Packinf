@@ -128,7 +128,7 @@ public class AutoCopyrightTests
 
             result.OverallResult.Should().Be(BuildResultCode.Success);
 
-            result.Diagnostics.Should().BeEquivalentTo((IEnumerable<Diagnostic>)[]);
+            result.Diagnostics.Should().BeEmpty();
         }
 
         [Fact]
@@ -183,7 +183,7 @@ public class AutoCopyrightTests
 
             result.OverallResult.Should().Be(BuildResultCode.Success);
 
-            result.Diagnostics.Should().BeEquivalentTo((IEnumerable<Diagnostic>)[]);
+            result.Diagnostics.Should().BeEmpty();
         }
 
         [Fact]
@@ -210,7 +210,7 @@ public class AutoCopyrightTests
 
             result.OverallResult.Should().Be(BuildResultCode.Success);
 
-            result.Diagnostics.Should().BeEquivalentTo((IEnumerable<Diagnostic>)[]);
+            result.Diagnostics.Should().BeEmpty();
         }
     }
 
@@ -247,7 +247,7 @@ public class AutoCopyrightTests
 
         result.OverallResult.Should().Be(BuildResultCode.Success);
 
-        result.Diagnostics.Should().BeEquivalentTo((IEnumerable<Diagnostic>)[]);
+        result.Diagnostics.Should().BeEmpty();
 
         result.Properties.Should().ContainKey("CopyrightGenerated").WhoseValue.Should().Be("true");
         result.Properties.Should().ContainKey("Copyright").WhoseValue.Should().Be("Copyright (C) 2012, 2013 John Doe.\nCopyright (C) 2011, 2013, 2014 Jane Doe.\nAll rights reserved.");

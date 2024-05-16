@@ -70,7 +70,7 @@ public class AutoasmverTests
 
             result.OverallResult.Should().Be(BuildResultCode.Success);
 
-            result.Diagnostics.Should().BeEquivalentTo((IEnumerable<Diagnostic>)[]);
+            result.Diagnostics.Should().BeEmpty();
         }
     }
 
@@ -104,7 +104,7 @@ public class AutoasmverTests
 
         result.OverallResult.Should().Be(BuildResultCode.Success);
 
-        result.Diagnostics.Should().BeEquivalentTo((IEnumerable<Diagnostic>)[]);
+        result.Diagnostics.Should().BeEmpty();
 
         result.Properties.Should().ContainKey("AssemblyVersion").WhoseValue.Should().Be(expectedAssemblyVersion);
     }
