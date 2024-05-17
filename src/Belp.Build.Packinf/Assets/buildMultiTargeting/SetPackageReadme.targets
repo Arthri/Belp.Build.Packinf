@@ -2,13 +2,13 @@
 
   <!-- Check and raise diagnostics for README configuration. -->
   <Target Name="_CheckReadmeConfiguration" Condition="'$(PackageReadmeFile)' == ''">
-    <Warning Code="BLP4006" Condition="@(PackageReadme->Count()) > 1" Text="Multiple candidate package READMEs found. @(PackageReadme, ', ')" />
+    <Warning Code="BLP4006" Condition="@(PackageReadme->Count()) > 1" Text="Multiple candidate package READMEs found: @(PackageReadme, ', ')." />
   </Target>
 
   <!-- If a README file was registered earlier, use it. -->
   <Target Name="SetPackageReadmeFile" Condition="'$(PackageReadmeFile)' == '' And '@(PackageReadme)' != ''" DependsOnTargets="_CheckReadmeConfiguration">
     <PropertyGroup>
-      <PackageReadmeFile>%(PackageReadme.Filename)%(PackageReadme.Extension)</PackageReadmeFile>
+      <PackageReadmeFile>%(PackageReadme.PackagePath)</PackageReadmeFile>
     </PropertyGroup>
   </Target>
 
@@ -17,8 +17,9 @@
   <!-- If no READMEs were found, try the repository root. -->
   <Target Name="_TryFindReadmeFromRepositoryRoot" Condition="'$(PackageReadmeFile)' == '' And '@(PackageReadme)' == ''" DependsOnTargets="InitializeSourceControlInformation">
     <ItemGroup>
-      <PackageReadme Include="@(SourceRoot->Combine('README.md'))" Condition="'%(SourceRoot.SourceControl)' != '' And '%(SourceRoot.ContainingRoot)' == '' And Exists('%(FullPath)README.md')" Pack="true" PackagePath="/%(Filename)%(Extension)">
+      <PackageReadme Include="@(SourceRoot->Combine('README.md'))" Condition="'%(SourceRoot.SourceControl)' != '' And '%(SourceRoot.ContainingRoot)' == '' And Exists('%(FullPath)README.md')" Pack="true" PackagePath="README.md">
         <ItemSource>RepositoryRoot</ItemSource>
+        <PackagePath>README.md</PackagePath>
       </PackageReadme>
       <None Include="@(PackageReadme->WithMetadataValue('ItemSource', 'RepositoryRoot'))" />
     </ItemGroup>
