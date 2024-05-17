@@ -8,7 +8,7 @@
   <!-- If a README file was registered earlier, use it. -->
   <Target Name="SetPackageReadmeFile" Condition="'$(PackageReadmeFile)' == '' And '@(PackageReadme)' != ''" DependsOnTargets="_CheckReadmeConfiguration">
     <PropertyGroup>
-      <PackageReadmeFile>%(PackageReadme.PackagePath)</PackageReadmeFile>
+      <PackageReadmeFile>$([MSBuild]::ValueOrDefault('%(PackageReadme.PackagePath)', '%(PackageReadme.Filename)%(PackageReadme.Extension)'))</PackageReadmeFile>
     </PropertyGroup>
   </Target>
 
