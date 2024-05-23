@@ -107,18 +107,19 @@ public class PackageReadmeTests
     public async Task READMEX2Emd_in_source_root_should_be_considered()
 #pragma warning restore IDE1006 // Naming Styles
     {
-        var project = (FileTestProject.Instance)MSBuildTest.Load.Project.From.Samples("GitREADMESample");
+        TestSampleInstance sample = MSBuildTest.Load.Sample("GitREADMESample");
+        FileTestProject.Instance project = sample.DefaultProject;
         await Process.Start(new ProcessStartInfo
         {
             FileName = "git",
             ArgumentList = { "init" },
-            WorkingDirectory = project.Location,
+            WorkingDirectory = sample.RootPath,
         })!.WaitForExitAsync();
         await Process.Start(new ProcessStartInfo
         {
             FileName = "git",
             ArgumentList = { "commit", "--allow-empty", "--only", "-m", "Initial Commit" },
-            WorkingDirectory = project.Location,
+            WorkingDirectory = sample.RootPath,
         })!.WaitForExitAsync();
         MSBuildResult result = project.Build(
             BuildRequestDataFlags.ProvideProjectStateAfterBuild,
