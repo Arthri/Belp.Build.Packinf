@@ -1,5 +1,5 @@
-﻿using Belp.Build.Test.MSBuild;
-using Belp.Build.Test.MSBuild.Resources;
+﻿using Belp.Build.Testing;
+using Belp.Build.Testing.Resources;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using Microsoft.Build.Execution;

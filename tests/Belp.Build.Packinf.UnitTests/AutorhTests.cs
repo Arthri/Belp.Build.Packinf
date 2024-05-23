@@ -1,5 +1,5 @@
-﻿using Belp.Build.Test.MSBuild.Resources;
-using Belp.Build.Test.MSBuild;
+﻿using Belp.Build.Testing.Resources;
+using Belp.Build.Testing;
 using FluentAssertions.Execution;
 using Microsoft.Build.Execution;
 using Xunit;
@@ -171,7 +171,7 @@ public class AutorhTests
                     <RequireCopyrightNotice>false</RequireCopyrightNotice>
                     <IncludeCopyrightOwnersInAuthors>false</IncludeCopyrightOwnersInAuthors>
                   </PropertyGroup>
-                
+
                   <ItemGroup>
                     <CopyrightOwner Include="John Doe" Years="2024" />
                   </ItemGroup>
@@ -240,9 +240,9 @@ public class AutorhTests
                 "BLP4008.csproj",
                 """
                 <Project>
-                
+
                   <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.props" />
-                
+
                   <PropertyGroup>
                     <TargetFramework>net8.0</TargetFramework>
                     <DisableAutoCopyright>true</DisableAutoCopyright>
@@ -250,13 +250,13 @@ public class AutorhTests
                     <DisableAutorh>true</DisableAutorh>
                     <RequireAuthors>false</RequireAuthors>
                   </PropertyGroup>
-                
+
                   <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.targets" />
-                
+
                   <PropertyGroup>
                     <Authors></Authors>
                   </PropertyGroup>
-                
+
                 </Project>
                 """
             );
