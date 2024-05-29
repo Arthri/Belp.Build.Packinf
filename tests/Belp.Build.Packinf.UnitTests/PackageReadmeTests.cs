@@ -138,7 +138,7 @@ public class PackageReadmeTests
 
         AssertNuspecHasREADME(archive);
 
-        AssertNupkgHasREADMEWithValue(archive, File.ReadAllText(Path.Combine(project.Location, "README.md")));
+        AssertNupkgHasREADMEWithValue(archive, File.ReadAllText(Path.Combine(sample.RootPath, "README.md")));
     }
 
     [Fact]
