@@ -59,8 +59,8 @@ public class PackageReadmeTests
     {
         TestProjectInstance project = MSBuildTest.Load.Project.From.Samples("PackageREADMESample");
         MSBuildResult result = project.Build(
-            BuildRequestDataFlags.ProvideProjectStateAfterBuild,
-            configureRequestData: request => request.TargetNames.Add("Pack")
+            ["Build", "Pack"],
+            BuildRequestDataFlags.ProvideProjectStateAfterBuild
         );
 
         using var scope = new AssertionScope();
@@ -83,8 +83,8 @@ public class PackageReadmeTests
     {
         TestProjectInstance project = MSBuildTest.Load.Project.From.Samples("READMESample");
         MSBuildResult result = project.Build(
-            BuildRequestDataFlags.ProvideProjectStateAfterBuild,
-            configureRequestData: request => request.TargetNames.Add("Pack")
+            ["Build", "Pack"],
+            BuildRequestDataFlags.ProvideProjectStateAfterBuild
         );
 
         using var scope = new AssertionScope();
@@ -113,17 +113,17 @@ public class PackageReadmeTests
         {
             FileName = "git",
             ArgumentList = { "init" },
-            WorkingDirectory = sample.RootPath,
+            WorkingDirectory = sample.Directory,
         })!.WaitForExitAsync();
         await Process.Start(new ProcessStartInfo
         {
             FileName = "git",
             ArgumentList = { "commit", "--allow-empty", "--only", "-m", "Initial Commit" },
-            WorkingDirectory = sample.RootPath,
+            WorkingDirectory = sample.Directory,
         })!.WaitForExitAsync();
         MSBuildResult result = project.Build(
-            BuildRequestDataFlags.ProvideProjectStateAfterBuild,
-            configureRequestData: request => request.TargetNames.Add("Pack")
+            ["Build", "Pack"],
+            BuildRequestDataFlags.ProvideProjectStateAfterBuild
         );
 
         using var scope = new AssertionScope();
@@ -138,7 +138,7 @@ public class PackageReadmeTests
 
         AssertNuspecHasREADME(archive);
 
-        AssertNupkgHasREADMEWithValue(archive, File.ReadAllText(Path.Combine(sample.RootPath, "README.md")));
+        AssertNupkgHasREADMEWithValue(archive, File.ReadAllText(Path.Combine(sample.Directory, "README.md")));
     }
 
     [Fact]

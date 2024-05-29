@@ -14,12 +14,12 @@ public class DevelopmentPackageTests
     public void Expect_package_to_be_pushed_and_cache_to_be_cleared()
     {
         TestSampleInstance sample = MSBuildTest.Load.Sample("PushDevelopmentPackage");
-        Directory.CreateDirectory(Path.Combine(sample.RootPath, "bin", "packages"));
+        Directory.CreateDirectory(Path.Combine(sample.Directory, "bin", "packages"));
 
         {
             FileTestProject.Instance project = sample.DefaultProject;
             MSBuildResult result = project.Build(
-                configureRequestData: request => request.TargetNames.Add("Pack"),
+                ["Build", "Pack"],
                 configureProjectInstance: project => project.SetProperty("PushPackageToDevelopmentSource", "true")
             );
 
@@ -49,8 +49,8 @@ public class DevelopmentPackageTests
         {
             FileTestProject.Instance project = sample.DefaultProject;
             MSBuildResult result = project.Build(
+                ["Build", "Pack"],
                 BuildRequestDataFlags.ProvideProjectStateAfterBuild,
-                configureRequestData: request => request.TargetNames.Add("Pack"),
                 configureProjectInstance: project => project.SetProperty("PushPackageToDevelopmentSource", "true")
             );
 
@@ -78,7 +78,7 @@ public class DevelopmentPackageTests
 
             void GetHash(string filePath, scoped Span<byte> output)
             {
-                string path = Path.Combine(sample.RootPath, "bin", filePath);
+                string path = Path.Combine(sample.Directory, "bin", filePath);
                 File.Exists(path).Should().BeTrue($"File {path} should exist");
                 using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
                 SHA512.HashData(stream, output);
