@@ -11,7 +11,7 @@
       <!-- If RelativeDir is rooted then use it -->
       <RootFolder Condition="$([System.IO.Path]::IsPathRooted('%(RelativeDir)'))">%(RelativeDir)</RootFolder>
       <!-- Otherwise root it -->
-      <RootFolder Condition="'%(RootFolder)' == ''">$([System.IO.Path]::GetFullPath('$([System.IO.Path]::Combine('$(MSBuildProjectDirectory)', '%(RelativeDir)'))'))</RootFolder>
+      <RootFolder Condition="'%(RootFolder)' == ''">$([System.IO.Path]::GetFullPath('%(RelativeDir)'))</RootFolder>
     </None>
   </ItemGroup>
 
