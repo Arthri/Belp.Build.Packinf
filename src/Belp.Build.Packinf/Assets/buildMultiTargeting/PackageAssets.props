@@ -4,11 +4,11 @@
   <ItemGroup Condition="'$(EnableDefaultPackItems)' != 'false'">
     <PackageAsset Include="Assets\**\*" Exclude="Assets\content\**\*" PackagePath="/">
       <ItemSource>Assets</ItemSource>
-      <BuildAction Condition="'%(Extension)' == '$(DefaultLanguageSourceExtension)'">Compile</BuildAction>
+      <BuildAction Condition="'%(Extension)' == '.cs'">Compile</BuildAction>
     </PackageAsset>
     <PackageAsset Include="Assets\content\**\*">
       <ItemSource>AssetsContent</ItemSource>
-      <BuildAction Condition="'%(Extension)' == '$(DefaultLanguageSourceExtension)'">Compile</BuildAction>
+      <BuildAction Condition="'%(Extension)' == '.cs'">Compile</BuildAction>
       <BuildAction Condition="'%(BuildAction)' == ''">Content</BuildAction>
     </PackageAsset>
   </ItemGroup>
