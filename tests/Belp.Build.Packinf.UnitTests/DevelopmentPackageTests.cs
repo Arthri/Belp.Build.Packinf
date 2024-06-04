@@ -18,8 +18,7 @@ public class DevelopmentPackageTests
 
         {
             FileTestProject.Instance project = sample.DefaultProject;
-            MSBuildResult result = project.Build(
-                ["Build", "Pack"],
+            MSBuildResult result = project.Pack(
                 configureProjectInstance: project => project.SetProperty("PushPackageToDevelopmentSource", "true")
             );
 
@@ -48,8 +47,7 @@ public class DevelopmentPackageTests
 
         {
             FileTestProject.Instance project = sample.DefaultProject;
-            MSBuildResult result = project.Build(
-                ["Build", "Pack"],
+            MSBuildResult result = project.Pack(
                 BuildRequestDataFlags.ProvideProjectStateAfterBuild,
                 configureProjectInstance: project => project.SetProperty("PushPackageToDevelopmentSource", "true")
             );

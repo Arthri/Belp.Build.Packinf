@@ -58,8 +58,7 @@ public class PackageReadmeTests
     public void PackageREADMEX2Emd_beside_project_should_be_considered()
     {
         TestProjectInstance project = MSBuildTest.Load.Project.From.Samples("PackageREADMESample");
-        MSBuildResult result = project.Build(
-            ["Build", "Pack"],
+        MSBuildResult result = project.Pack(
             BuildRequestDataFlags.ProvideProjectStateAfterBuild
         );
 
@@ -82,8 +81,7 @@ public class PackageReadmeTests
     public void READMEX2Emd_beside_project_should_be_considered()
     {
         TestProjectInstance project = MSBuildTest.Load.Project.From.Samples("READMESample");
-        MSBuildResult result = project.Build(
-            ["Build", "Pack"],
+        MSBuildResult result = project.Pack(
             BuildRequestDataFlags.ProvideProjectStateAfterBuild
         );
 
@@ -121,8 +119,7 @@ public class PackageReadmeTests
             ArgumentList = { "commit", "--allow-empty", "--only", "-m", "Initial Commit" },
             WorkingDirectory = sample.Directory,
         })!.WaitForExitAsync();
-        MSBuildResult result = project.Build(
-            ["Build", "Pack"],
+        MSBuildResult result = project.Pack(
             BuildRequestDataFlags.ProvideProjectStateAfterBuild
         );
 
