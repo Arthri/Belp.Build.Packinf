@@ -1,4 +1,4 @@
-﻿using Belp.Build.Testing;
+using Belp.Build.Testing;
 using Belp.Build.Testing.Resources;
 using FluentAssertions;
 using System.IO.Compression;
@@ -116,5 +116,11 @@ public partial class PackEquivalencyTests
     public void Packinf_should_substitute_Package_ID_and_result_in_equal_package_when_in_content()
     {
         AssertPacksEqual("ContentPackageIdPackinfPack", "ContentPackageIdNuGetPack");
+    }
+
+    [Fact]
+    public void Packinf_should_substitute_Package_ID_and_result_in_equal_package_when_in_content_and_when_multitargeting()
+    {
+        AssertPacksEqual("ContentPackageIdPackinfPackMultiTargeting", "ContentPackageIdNuGetPackMultiTargeting");
     }
 }
