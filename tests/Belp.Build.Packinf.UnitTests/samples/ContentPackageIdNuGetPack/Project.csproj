@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <CopyrightOwner Include="John Doe" Years="2021" />
+    <Compile Update="Project.cs" Pack="true" />
+    <Content Include="Project.bib" Pack="true" />
   </ItemGroup>
 
 </Project>

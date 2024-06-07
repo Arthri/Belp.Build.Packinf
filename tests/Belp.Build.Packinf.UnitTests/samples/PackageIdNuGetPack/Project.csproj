@@ -8,7 +8,7 @@
     <CopyrightOwner Include="John Doe" Years="2021" />
     <None Update="a.a1" Pack="true" PackagePath="tools/" />
     <None Update="c.a2" Pack="true" PackagePath="tools/" />
-    <None Update="SimplePack.b1" Pack="true" PackagePath="$(PackageId)/" />
+    <None Update="Project.b1" Pack="true" PackagePath="$(PackageId)/" />
     <None Update="_X.b2" Pack="true" PackagePath="$(PackageId)/" />
   </ItemGroup>
 

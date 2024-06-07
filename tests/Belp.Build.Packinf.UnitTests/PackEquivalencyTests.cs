@@ -91,30 +91,30 @@ public partial class PackEquivalencyTests
     [Fact]
     public void Simple_assets_should_result_in_equal_package()
     {
-        AssertPacksEqual("SimplePackinfPackSample", "SimpleNuGetPackSample");
+        AssertPacksEqual("SimplePackinfPack", "SimpleNuGetPack");
     }
 
     [Fact]
     public void Content_assets_should_result_in_equal_package()
     {
-        AssertPacksEqual("ContentPackinfPackSample", "ContentNuGetPackSample");
+        AssertPacksEqual("ContentPackinfPack", "ContentNuGetPack");
     }
 
     [Fact]
     public void Content_assets_should_result_in_equal_package_in_a_multitargeting_project()
     {
-        AssertPacksEqual("ContentPackinfPackSampleMultiTargeting", "ContentNuGetPackSampleMultiTargeting");
+        AssertPacksEqual("ContentPackinfPackMultiTargeting", "ContentNuGetPackMultiTargeting");
     }
 
     [Fact]
     public void Packinf_should_substitute_Package_ID_and_result_in_equal_package()
     {
-        AssertPacksEqual("PackageIdPackinfPackSample", "PackageIdNuGetPackSample");
+        AssertPacksEqual("PackageIdPackinfPack", "PackageIdNuGetPack");
     }
 
     [Fact]
     public void Packinf_should_substitute_Package_ID_and_result_in_equal_package_when_in_content()
     {
-        AssertPacksEqual("ContentPackageIdPackinfPackSample", "ContentPackageIdNuGetPackSample");
+        AssertPacksEqual("ContentPackageIdPackinfPack", "ContentPackageIdNuGetPack");
     }
 }

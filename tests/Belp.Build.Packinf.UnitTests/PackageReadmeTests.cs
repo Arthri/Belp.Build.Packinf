@@ -57,7 +57,7 @@ public class PackageReadmeTests
     [Fact]
     public void PackageREADMEX2Emd_beside_project_should_be_considered()
     {
-        TestProjectInstance project = MSBuildTest.Load.Project.From.Samples("PackageREADMESample");
+        TestProjectInstance project = MSBuildTest.Load.Project.From.Samples("PackageREADME");
         MSBuildResult result = project.Pack(
             BuildRequestDataFlags.ProvideProjectStateAfterBuild
         );
@@ -80,7 +80,7 @@ public class PackageReadmeTests
     [Fact]
     public void READMEX2Emd_beside_project_should_be_considered()
     {
-        TestProjectInstance project = MSBuildTest.Load.Project.From.Samples("READMESample");
+        TestProjectInstance project = MSBuildTest.Load.Project.From.Samples("README");
         MSBuildResult result = project.Pack(
             BuildRequestDataFlags.ProvideProjectStateAfterBuild
         );
@@ -105,7 +105,7 @@ public class PackageReadmeTests
     public async Task READMEX2Emd_in_source_root_should_be_considered()
 #pragma warning restore IDE1006 // Naming Styles
     {
-        TestSampleInstance sample = MSBuildTest.Load.Sample("GitREADMESample");
+        TestSampleInstance sample = MSBuildTest.Load.Sample("GitREADME");
         FileTestProject.Instance project = sample.DefaultProject;
         await Process.Start(new ProcessStartInfo
         {
