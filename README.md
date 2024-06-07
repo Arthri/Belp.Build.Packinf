@@ -53,6 +53,9 @@ Files that are named `_Package` will be automatically renamed to `$(PackageId)` 
 ### `Assets/` folder
 By default, all files inside `Assets/` will be packed. This behavior can be disabled by setting `$(EnableDefaultPackItems)` to false.
 
+> [!CAUTION]
+> All package asset files must have an extension, due to a series of technicalities with NuGet.
+
 ### README file
 Files that are named `README`(case-insensitive) and are placed beside the project will be packed as the package's README file. If no READMEs are present beside the project, and SourceLink is installed in the project, the file named `README.md` at the repository's root(if present) will be used instead. Only one README should be defined.
 
