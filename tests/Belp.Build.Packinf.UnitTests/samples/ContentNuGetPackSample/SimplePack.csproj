@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <CopyrightOwner Include="John Doe" Years="2021" />
+    <Compile Update="z.cs" Pack="true" />
+    <Content Include="x.txt" Pack="true" />
+    <Content Include="y.txt" Pack="true" />
+  </ItemGroup>
+
+</Project>

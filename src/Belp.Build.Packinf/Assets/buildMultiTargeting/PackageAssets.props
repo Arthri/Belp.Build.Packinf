@@ -13,11 +13,4 @@
     </PackageAsset>
   </ItemGroup>
 
-
-
-  <PropertyGroup>
-    <!-- This needs to happen before packing acquires package files -->
-    <GenerateNuspecDependsOn>$(GenerateNuspecDependsOn);_SetPackagePathForContentFiles</GenerateNuspecDependsOn>
-  </PropertyGroup>
-
 </Project>

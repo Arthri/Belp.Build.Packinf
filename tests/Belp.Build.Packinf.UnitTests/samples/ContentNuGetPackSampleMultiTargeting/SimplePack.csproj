@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net7.0;net8.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <CopyrightOwner Include="John Doe" Years="2021" />
+    <!-- Only include in outer builds. Workaround for https://github.com/NuGet/Home/issues/11467 -->
+    <Compile Include="z.cs" Pack="true" Condition="'$(TargetFramework)' == ''" />
+    <Content Include="x.txt" Pack="true" />
+    <Content Include="y.txt" Pack="true" />
+  </ItemGroup>
+
+</Project>

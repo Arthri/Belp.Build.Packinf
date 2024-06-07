@@ -21,7 +21,7 @@
 
   <!-- Test Configuration -->
   <ItemGroup>
-    <BuildProjectUnderTest Include="../../src/Belp.Build.Packinf/Belp.Build.Packinf.csproj" Alias="ThisPackage" />
+    <TestProjectReference Include="../../src/Belp.Build.Packinf/Belp.Build.Packinf.csproj" Alias="ThisPackage" />
   </ItemGroup>
 
 
