@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <CopyrightOwner Include="John Doe" Years="2021" />
-    <PackageReference Include="PushDevelopmentPackage" Version="1.0.0" />
+    <PackageReference Include="PushPackage" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
