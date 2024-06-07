@@ -1,6 +1,8 @@
-using Belp.Build.Testing;
+﻿using Belp.Build.Testing;
 using Belp.Build.Testing.Resources;
 using FluentAssertions;
+using FluentAssertions.Execution;
+using Microsoft.Build.Execution;
 using System.IO.Compression;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -79,8 +81,16 @@ public partial class PackEquivalencyTests
         TestProjectInstance project1 = MSBuildTest.Load.Project.From.Samples(sample1);
         TestProjectInstance project2 = MSBuildTest.Load.Project.From.Samples(sample2);
 
-        _ = project1.Pack();
-        _ = project2.Pack();
+        using (var scope = new AssertionScope())
+        {
+            MSBuildResult result1 = project1.Pack();
+            result1.OverallResult.Should().Be(BuildResultCode.Success);
+            result1.Diagnostics.Should().BeEmpty();
+
+            MSBuildResult result2 = project2.Pack();
+            result2.OverallResult.Should().Be(BuildResultCode.Success);
+            result2.Diagnostics.Should().BeEmpty();
+        }
 
         using ZipArchive archive1 = OpenNupkg(project1);
         using ZipArchive archive2 = OpenNupkg(project2);
