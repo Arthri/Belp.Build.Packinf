@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <CopyrightOwner Include="John Doe" Years="2021" />
+    <Compile Update="w.cs" Pack="true" PackagePath="tools/" />
+    <None Update="x.txt" Pack="true" PackagePath="tools/" />
+    <None Update="y.txt" Pack="true" PackagePath="tools/y.txt" />
+  </ItemGroup>
+
+</Project>

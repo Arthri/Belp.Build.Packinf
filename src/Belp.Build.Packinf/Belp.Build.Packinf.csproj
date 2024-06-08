@@ -2,7 +2,14 @@
 
   <Import Project="Assets/build/_Package.props" />
 
-  <Import Project="Sdk.props" Sdk="Belp.SDK.PackOnly" Version="0.3.0" />
+  <Import Project="Sdk.props" Sdk="Belp.SDK.PackOnly" Version="0.5.0" />
+
+
+
+  <!-- Build Configuration -->
+  <PropertyGroup>
+    <ReferencePackinf>false</ReferencePackinf>
+  </PropertyGroup>
 
 
 
@@ -18,6 +25,7 @@
     <Product>Belp</Product>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <Title>Packinf</Title>
+    <Version Condition="'$(Version)' == ''">0.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -36,7 +44,7 @@
 
 
 
-  <Import Project="Sdk.targets" Sdk="Belp.SDK.PackOnly" Version="0.3.0" />
+  <Import Project="Sdk.targets" Sdk="Belp.SDK.PackOnly" Version="0.5.0" />
 
   <Import Project="Assets/build/_Package.targets" />
 

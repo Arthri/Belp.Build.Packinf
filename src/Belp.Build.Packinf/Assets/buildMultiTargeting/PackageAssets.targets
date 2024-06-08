@@ -1,18 +1,41 @@
-<Project ToolsVersion="15.0" TreatAsLocalProperty="_contentFiles_any;_contentFiles_cs" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" InitialTargets="_CheckPackageAssets" TreatAsLocalProperty="_contentFiles_any;_contentFiles_cs" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Target Name="_CheckPackageAssets" Condition="'@(PackageAsset)' != ''">
+    <Error Condition="'%(PackageAsset.Extension)' == '' And '%(PackageAsset.Filename)' == '_Package'" Code="BLP4011" Text="PackageAsset does not support extension-less files named _Package." File="%(PackageAsset.FullPath)" />
+    <Error Condition="'%(None._RecursiveDirContains_Package)' == 'true' And '%(None.Extension)' == ''" Code="BLP4012" Text="PackageAsset does not support _Package in the paths of package files." File="%(None.FullPath)" />
+    <Error Condition="'%(PackageAsset.Extension)' == '' And '%(PackageAsset.ItemSource)' == 'AssetsContent'" Code="BLP4013" Text="Content assets must have an extension." File="%(PackageAsset.FullPath)" />
+  </Target>
+
+
 
   <ItemGroup>
     <None Remove="@(PackageAsset)" />
     <None Include="@(PackageAsset)">
-      <ItemSource>PackageAsset</ItemSource>
       <Pack>true</Pack>
 
       <PackagePath Condition="'%(PackagePath)' == ''">content;contentFiles</PackagePath>
-      <PackagePath Condition="'%(Filename)' == '_Package'">$([System.Text.RegularExpressions.Regex]::Replace('%(PackagePath)', '(?&lt;=[^;])(?=;|\Z)', '%(RecursiveDir)$(PackageId)%(Extension)'))</PackagePath>
 
-      <!-- If RelativeDir is rooted then use it -->
-      <RootFolder Condition="$([System.IO.Path]::IsPathRooted('%(RelativeDir)'))">%(RelativeDir)</RootFolder>
-      <!-- Otherwise root it -->
-      <RootFolder Condition="'%(RootFolder)' == ''">$([System.IO.Path]::GetFullPath('$([System.IO.Path]::Combine('$(MSBuildProjectDirectory)', '%(RelativeDir)'))'))</RootFolder>
+      <!--
+        Expands contentFiles/ to contentFiles/{language}/{tfm}
+        The expansion has an implementation in NuGet, but can only be triggered
+        for some files, so it has to be reimplemented here.
+      -->
+      <PackagePath Condition="'%(BuildAction)' == 'Compile'">$([System.Text.RegularExpressions.Regex]::Replace('%(PackagePath)', '(?&lt;=\A|;)contentFiles[/\\]*(?=;|\Z)', '$(_contentFiles_cs)'))</PackagePath>
+      <PackagePath Condition="'%(BuildAction)' != 'Compile'">$([System.Text.RegularExpressions.Regex]::Replace('%(PackagePath)', '(?&lt;=\A|;)contentFiles[/\\]*(?=;|\Z)', '$(_contentFiles_any)'))</PackagePath>
+
+      <_TargetFileName Condition="'%(Filename)' == '_Package'">$(PackageId)</_TargetFileName>
+      <!--
+        If RecursiveDir contains a directory named _Package,
+        Then force expansion of PackagePath and replacement of _Package
+      -->
+      <_RecursiveDirContains_Package>$([System.Text.RegularExpressions.Regex]::IsMatch('%(RecursiveDir)', '(?&lt;=\A|[\\/])_Package(?=[\\/]|\Z)'))</_RecursiveDirContains_Package>
+      <_TargetFileName Condition="'%(_TargetFileName)' == '' And '%(_RecursiveDirContains_Package)' == 'true'">%(Filename)</_TargetFileName>
+      <PackagePath Condition="'%(_TargetFileName)' != '' And '%(Extension)' != ''">$([System.Text.RegularExpressions.Regex]::Replace('%(PackagePath)', '(?&lt;!;|[^/\\]$([System.Text.RegularExpressions.Regex]::Escape(%(Extension))))(?=;|\Z)', '/%(RecursiveDir)%(_TargetFileName)%(Extension)'))</PackagePath>
+
+      <!-- Replace _Package in directory names with PackageId -->
+      <PackagePath>$([System.Text.RegularExpressions.Regex]::Replace('%(PackagePath)', '(?&lt;=\A|[\\/])_Package(?=[\\/]|\Z)', '$(PackageId)'))</PackagePath>
+      <!-- Replace \ with /, and squash consecutive slashes into / -->
+      <PackagePath>$([System.Text.RegularExpressions.Regex]::Replace('%(PackagePath)', '[\\/]{2,}|\\', '/'))</PackagePath>
     </None>
   </ItemGroup>
 
@@ -21,6 +44,7 @@
   <!-- Fix PackagePaths containing contentFiles/. -->
   <!-- Pre-generate paths for contentFiles. -->
   <Choose>
+    <!-- Single-Targeting Build -->
     <When Condition="'$(TargetFrameworks)' == ''">
       <PropertyGroup>
         <_contentFiles_any>contentFiles/any/$(TargetFramework)/</_contentFiles_any>
@@ -28,27 +52,15 @@
       </PropertyGroup>
     </When>
 
+    <!-- Multi-Targeting Build -->
     <Otherwise>
+      <!-- Current Context: Outer Build -->
+      <!-- Inner builds do not run pack(2024 June 07) -->
       <PropertyGroup>
         <_contentFiles_any>$([System.Text.RegularExpressions.Regex]::Replace('$(TargetFrameworks)', '(?&lt;=\A|;)[^;]+(?=;|\Z)', 'contentFiles/any/$0/'))</_contentFiles_any>
         <_contentFiles_cs>$([System.Text.RegularExpressions.Regex]::Replace('$(TargetFrameworks)', '(?&lt;=\A|;)[^;]+(?=;|\Z)', 'contentFiles/cs/$0/'))</_contentFiles_cs>
       </PropertyGroup>
     </Otherwise>
   </Choose>
-
-  <!--
-    NuGet only implements contentFiles for packages without
-    an explicitly PackagePath. For files with such, it must
-    be reimplemented.
-  -->
-  <Target Name="_SetPackagePathForContentFiles" AfterTargets="_GetPackageFiles">
-    <ItemGroup>
-      <_PackageFiles Condition="'%(_PackageFiles.ItemSource)' == 'PackageAsset' And '%(_PackageFiles.PackagePath)' != '' And '%(_PackageFiles.FixedContentFilesPath)' != 'true'">
-        <PackagePath Condition="'%(_PackageFiles.BuildAction)' == 'Compile'">$([System.Text.RegularExpressions.Regex]::Replace('%(_PackageFiles.PackagePath)', '(?&lt;=\A|;)contentFiles[/\\]*(?=;|\Z)', '$(_contentFiles_cs)'))</PackagePath>
-        <PackagePath Condition="'%(_PackageFiles.BuildAction)' != 'Compile'">$([System.Text.RegularExpressions.Regex]::Replace('%(_PackageFiles.PackagePath)', '(?&lt;=\A|;)contentFiles[/\\]*(?=;|\Z)', '$(_contentFiles_any)'))</PackagePath>
-        <FixedContentFilesPath>true</FixedContentFilesPath>
-      </_PackageFiles>
-    </ItemGroup>
-  </Target>
 
 </Project>

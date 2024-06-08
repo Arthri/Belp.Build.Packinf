@@ -1,0 +1,25 @@
+# Target C# files
+[*.cs]
+
+
+
+# Code Style Rules
+
+## Remove unnecessary expression value
+## https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/ide0058
+dotnet_diagnostic.IDE0058.severity = silent
+
+
+
+
+
+# Naming Rules
+## https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/naming-rules
+
+## Ignore Naming Rules on All Methods
+dotnet_naming_symbols.all_methods.applicable_kinds = method
+dotnet_naming_symbols.all_methods.applicable_accessibilities = *
+
+dotnet_naming_rule.default_naming_rule.severity = none
+dotnet_naming_rule.default_naming_rule.symbols = all_methods
+dotnet_naming_rule.default_naming_rule.style = default

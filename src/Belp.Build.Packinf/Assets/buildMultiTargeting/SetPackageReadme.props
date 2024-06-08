@@ -8,8 +8,8 @@
       </PropertyGroup>
 
       <ItemGroup>
-        <PackageReadme Include="PackageREADME.md" ItemSource="ProjectFolder" />
-        <None Include="PackageREADME.md" Pack="true" PackagePath="%(Filename)%(Extension)" />
+        <PackageReadme Include="PackageREADME.md" ItemSource="ProjectFolder" PackagePath="README.md" />
+        <None Include="PackageREADME.md" Pack="true" PackagePath="README.md" />
       </ItemGroup>
     </When>
 
@@ -19,8 +19,8 @@
       </PropertyGroup>
 
       <ItemGroup>
-        <PackageReadme Include="README.md" ItemSource="ProjectFolder" />
-        <None Include="README.md" Pack="true" PackagePath="%(Filename)%(Extension)" />
+        <PackageReadme Include="README.md" ItemSource="ProjectFolder" PackagePath="README.md" />
+        <None Include="README.md" Pack="true" PackagePath="README.md" />
       </ItemGroup>
     </When>
   </Choose>
