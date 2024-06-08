@@ -101,18 +101,22 @@ public class PackageReadmeTests
     {
         TestSampleInstance sample = MSBuildTest.Load.Sample("GitREADME");
         FileTestProject.Instance project = sample.DefaultProject;
-        await Process.Start(new ProcessStartInfo
+        Process p_gitInit = Process.Start(new ProcessStartInfo
         {
             FileName = "git",
             ArgumentList = { "init" },
             WorkingDirectory = sample.Directory,
-        })!.WaitForExitAsync();
-        await Process.Start(new ProcessStartInfo
+        })!;
+        await p_gitInit.WaitForExitAsync();
+        p_gitInit.ExitCode.Should().Be(0);
+        Process p_gitCommit = Process.Start(new ProcessStartInfo
         {
             FileName = "git",
-            ArgumentList = { "commit", "--allow-empty", "--only", "-m", "Initial Commit" },
+            ArgumentList = { "-c", "user.name=\"John Doe\"", "-c", "user.email=\"john.doe@example.com\"", "commit", "--allow-empty", "--only", "-m", "Initial Commit" },
             WorkingDirectory = sample.Directory,
-        })!.WaitForExitAsync();
+        })!;
+        await p_gitCommit.WaitForExitAsync();
+        p_gitCommit.ExitCode.Should().Be(0);
         MSBuildResult result = project.Pack(
             BuildRequestDataFlags.ProvideProjectStateAfterBuild
         );
