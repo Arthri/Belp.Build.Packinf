@@ -68,7 +68,11 @@ jobs:
         run: |
           NUGET_LOCAL_PATHS="$(dotnet nuget locals --list all)"
           echo "$NUGET_LOCAL_PATHS"
-          echo 'NUGET_LOCALS='$(sed -n 's/^[^:]\+: \(.\+\)/\1/p' <<< "$NUGET_LOCAL_PATHS" | jq -R -s) >> '$GITHUB_ENV'
+          {
+            echo 'NUGET_LOCALS<<"""'
+            sed -n 's/^[^:]\+: \(.\+\)/\1/p' <<< "$NUGET_LOCAL_PATHS" | jq -R -s
+            echo '"""'
+          } >> "$GITHUB_ENV"
 
       - uses: actions/cache@v4
         with:
@@ -99,7 +103,11 @@ jobs:
         run: |
           NUGET_LOCAL_PATHS="$(dotnet nuget locals --list all)"
           echo "$NUGET_LOCAL_PATHS"
-          echo 'NUGET_LOCALS='$(sed -n 's/^[^:]\+: \(.\+\)/\1/p' <<< "$NUGET_LOCAL_PATHS" | jq -R -s) >> '$GITHUB_ENV'
+          {
+            echo 'NUGET_LOCALS<<"""'
+            sed -n 's/^[^:]\+: \(.\+\)/\1/p' <<< "$NUGET_LOCAL_PATHS" | jq -R -s
+            echo '"""'
+          } >> "$GITHUB_ENV"
 
       - uses: actions/cache@v4
         with:
