@@ -1,0 +1,65 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [ master, dev ]
+  pull_request:
+    branches: [ master, dev ]
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+  DOTNET_GENERATE_ASPNET_CERTIFICATE: 'false'
+  DOTNET_NOLOGO: 'true'
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 'true'
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 2
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        id: setup-dotnet
+        uses: actions/setup-dotnet@v4
+        
+      - name: Build Projects
+        run: dotnet build
+
+  format:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    needs: build
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        id: setup-dotnet
+        uses: actions/setup-dotnet@v4
+        
+      - name: Run .NET Format
+        run: dotnet format --severity info --verify-no-changes
+
+  test:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    needs: format
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        id: setup-dotnet
+        uses: actions/setup-dotnet@v4
+        
+      - name: Run Tests
+        run: dotnet test
