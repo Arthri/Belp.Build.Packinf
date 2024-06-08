@@ -1,7 +1,8 @@
 <Project ToolsVersion="15.0" InitialTargets="_CheckPackageAssets" TreatAsLocalProperty="_contentFiles_any;_contentFiles_cs" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <Target Name="_CheckPackageAssets" Condition="'@(PackageAsset)' != ''">
-    <Error Condition="'%(PackageAsset.Extension)' == ''" Code="BLP4011" Text="Extension-less files are not supported by PackageAsset." File="%(PackageAsset.FullPath)" />
+    <Error Condition="'%(PackageAsset.Extension)' == '' And '%(PackageAsset.Filename)' == '_Package'" Code="BLP4011" Text="PackageAsset does not support extension-less files named _Package." File="%(PackageAsset.FullPath)" />
+    <Error Condition="'%(None._RecursiveDirContains_Package)' == 'true' And '%(None.Extension)' == ''" Code="BLP4012" Text="PackageAsset does not support _Package in the paths of package files." File="%(None.FullPath)" />
   </Target>
 
 
@@ -26,7 +27,8 @@
         If RecursiveDir contains a directory named _Package,
         Then force expansion of PackagePath and replacement of _Package
       -->
-      <_TargetFileName Condition="'%(_TargetFileName)' == '' And $([System.Text.RegularExpressions.Regex]::IsMatch('%(RecursiveDir)', '(?&lt;=\A|[\\/])_Package(?=[\\/]|\Z)'))">%(Filename)</_TargetFileName>
+      <_RecursiveDirContains_Package>$([System.Text.RegularExpressions.Regex]::IsMatch('%(RecursiveDir)', '(?&lt;=\A|[\\/])_Package(?=[\\/]|\Z)'))</_RecursiveDirContains_Package>
+      <_TargetFileName Condition="'%(_TargetFileName)' == '' And '%(_RecursiveDirContains_Package)' == 'true'">%(Filename)</_TargetFileName>
       <PackagePath Condition="'%(_TargetFileName)' != '' And '%(Extension)' != ''">$([System.Text.RegularExpressions.Regex]::Replace('%(PackagePath)', '(?&lt;!;|[^/\\]$([System.Text.RegularExpressions.Regex]::Escape(%(Extension))))(?=;|\Z)', '/%(RecursiveDir)%(_TargetFileName)%(Extension)'))</PackagePath>
 
       <!-- Replace _Package in directory names with PackageId -->

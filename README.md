@@ -50,11 +50,11 @@ An MSBuild extension that makes it easier to create and maintain NuGet packages.
 ### `_Package` files
 Files that are named `_Package` will be automatically renamed to `$(PackageId)` when packed. For example, if `$(PackageId)` is `Belp.Build.XYZ` and a file is named `_Package.txt`, it will be packed as `Belp.Build.XYZ.txt`. This feature makes it easier for forks to edit and maintain files that are required to be named in that manner.
 
+> [!CAUTION]
+> Files named `_Package` or files containing a `_Package` folder in its path must have a file extension.
+
 ### `Assets/` folder
 By default, all files inside `Assets/` will be packed. This behavior can be disabled by setting `$(EnableDefaultPackItems)` to false.
-
-> [!CAUTION]
-> All package asset files must have an extension, due to a series of technicalities with NuGet.
 
 ### README file
 Files that are named `README`(case-insensitive) and are placed beside the project will be packed as the package's README file. If no READMEs are present beside the project, and SourceLink is installed in the project, the file named `README.md` at the repository's root(if present) will be used instead. Only one README should be defined.
