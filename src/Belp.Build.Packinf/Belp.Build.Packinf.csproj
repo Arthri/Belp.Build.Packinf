@@ -25,7 +25,7 @@
     <Product>Belp</Product>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <Title>Packinf</Title>
-    <Version Condition="'$(Version)' == ''">0.0.1-developer</Version>
+    <Version Condition="'$(Version)' == ''">0.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
