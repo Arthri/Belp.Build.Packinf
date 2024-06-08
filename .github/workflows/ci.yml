@@ -46,7 +46,6 @@ jobs:
             ${{ fromJson(env.NUGET_LOCALS) }}
             ~/.dotnet/toolResolverCache
             **/obj
-            !**/.git/**/obj
 
       - name: Build Projects
         run: dotnet build
@@ -81,7 +80,6 @@ jobs:
             ${{ fromJson(env.NUGET_LOCALS) }}
             ~/.dotnet/toolResolverCache
             **/obj
-            !**/.git/**/obj
 
       - name: Run .NET Format
         run: dotnet format --severity info --verify-no-changes
@@ -116,7 +114,6 @@ jobs:
             ${{ fromJson(env.NUGET_LOCALS) }}
             ~/.dotnet/toolResolverCache
             **/obj
-            !**/.git/**/obj
 
       - name: Run Tests
         run: dotnet test
