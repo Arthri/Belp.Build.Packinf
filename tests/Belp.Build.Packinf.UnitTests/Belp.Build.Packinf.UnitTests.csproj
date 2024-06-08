@@ -1,4 +1,4 @@
-﻿<Project Sdk="Belp.SDK.Build.Testing.XUnit/1.0.0">
+﻿<Project Sdk="Belp.SDK.Build.Testing.XUnit/1.0.1">
 
   <!-- Test Configuration -->
   <ItemGroup>
