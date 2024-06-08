@@ -3,6 +3,7 @@
   <Target Name="_CheckPackageAssets" Condition="'@(PackageAsset)' != ''">
     <Error Condition="'%(PackageAsset.Extension)' == '' And '%(PackageAsset.Filename)' == '_Package'" Code="BLP4011" Text="PackageAsset does not support extension-less files named _Package." File="%(PackageAsset.FullPath)" />
     <Error Condition="'%(None._RecursiveDirContains_Package)' == 'true' And '%(None.Extension)' == ''" Code="BLP4012" Text="PackageAsset does not support _Package in the paths of package files." File="%(None.FullPath)" />
+    <Error Condition="'%(PackageAsset.Extension)' == '' And '%(PackageAsset.ItemSource)' == 'AssetsContent'" Code="BLP4013" Text="Content assets must have an extension." File="%(PackageAsset.FullPath)" />
   </Target>
 
 
