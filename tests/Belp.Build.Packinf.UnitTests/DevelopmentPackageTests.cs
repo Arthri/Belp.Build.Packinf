@@ -36,7 +36,7 @@ public class DevelopmentPackageTests
                 .WhoseValue.Should().NotBeNullOrEmpty()
                 .And.Subject
                 ;
-            Directory.Exists(Path.Combine(packageCache, "PushPackage", "1.0.0")).Should().BeTrue("Package should be restored and cached in global package cache");
+            Directory.Exists(Path.Combine(packageCache, "pushpackage", "1.0.0")).Should().BeTrue("Package should be restored and cached in global package cache");
         }
 
         {
@@ -55,7 +55,7 @@ public class DevelopmentPackageTests
                 .WhoseValue.Should().NotBeNullOrEmpty()
                 .And.Subject
                 ;
-            Directory.Exists(Path.Combine(packageCache, "PushPackage", "1.0.0")).Should().BeFalse("Package should be wiped from global package cache");
+            Directory.Exists(Path.Combine(packageCache, "pushpackage", "1.0.0")).Should().BeFalse("Package should be wiped from global package cache");
 
             AssertPackagesEqual();
         }
