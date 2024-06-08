@@ -1,11 +1,4 @@
-﻿using Belp.Build.Testing.Resources;
-using Belp.Build.Testing;
-using FluentAssertions.Execution;
-using Microsoft.Build.Execution;
-using Xunit;
-using FluentAssertions;
-
-namespace Belp.Build.Packinf.UnitTests;
+﻿namespace Belp.Build.Packinf.UnitTests;
 
 public class AutorhTests
 {

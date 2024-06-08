@@ -1,11 +1,4 @@
-﻿using Belp.Build.Testing;
-using Belp.Build.Testing.Resources;
-using FluentAssertions;
-using FluentAssertions.Execution;
-using Microsoft.Build.Execution;
-using Xunit;
-
-namespace Belp.Build.Packinf.UnitTests;
+﻿namespace Belp.Build.Packinf.UnitTests;
 
 public class AutoCopyrightTests
 {
