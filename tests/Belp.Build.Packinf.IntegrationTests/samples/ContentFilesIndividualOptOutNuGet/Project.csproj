@@ -6,10 +6,10 @@
 
   <ItemGroup>
     <CopyrightOwner Include="John Doe" Years="2021" />
-    <None Update="a.rtf" Pack="true" PackagePath="contentFiles/%(Filename)%(Extension)" />
-    <None Update="b.md" Pack="true" PackagePath="tools/%(Filename)%(Extension)" />
-    <None Update="d.html" Pack="true" PackagePath="content/%(Filename)%(Extension)" />
-    <Content Include="c.txt" Pack="true" />
+    <Content Include="a.txt" Pack="true" />
+    <None Update="b.html" Pack="true" PackagePath="content/%(Filename)%(Extension)" />
+    <None Update="c.rtf" Pack="true" PackagePath="contentFiles/%(Filename)%(Extension)" />
+    <None Update="d.md" Pack="true" PackagePath="tools/%(Filename)%(Extension)" />
   </ItemGroup>
 
 </Project>
