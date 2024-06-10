@@ -24,6 +24,12 @@
       <PackagePath Condition="'%(BuildAction)' == 'Compile'">$([System.Text.RegularExpressions.Regex]::Replace('%(PackagePath)', '(?&lt;=\A|;)contentFiles[/\\]*(?=;|\Z)', '$(_contentFiles_cs)'))</PackagePath>
       <PackagePath Condition="'%(BuildAction)' != 'Compile'">$([System.Text.RegularExpressions.Regex]::Replace('%(PackagePath)', '(?&lt;=\A|;)contentFiles[/\\]*(?=;|\Z)', '$(_contentFiles_any)'))</PackagePath>
 
+      <!--
+        If contentFiles/ is in %(RecursiveDir) then force expansion of
+        package path; otherwise, the file will not be properly registered
+        in the nuspec.
+      -->
+      <_TargetFileName Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('%(RecursiveDir)', '(?&lt;=\A|[\\/])contentFiles(?=[\\/]|\Z)'))">%(Filename)</_TargetFileName>
       <_TargetFileName Condition="'%(Filename)' == '_Package'">$(PackageId)</_TargetFileName>
       <!--
         If RecursiveDir contains a directory named _Package,
@@ -37,6 +43,8 @@
       <PackagePath>$([System.Text.RegularExpressions.Regex]::Replace('%(PackagePath)', '(?&lt;=\A|[\\/])_Package(?=[\\/]|\Z)', '$(PackageId)'))</PackagePath>
       <!-- Replace \ with /, and squash consecutive slashes into / -->
       <PackagePath>$([System.Text.RegularExpressions.Regex]::Replace('%(PackagePath)', '[\\/]{2,}|\\', '/'))</PackagePath>
+      <!-- NuGet properly registers contentFiles/ but not /contentFiles/ -->
+      <PackagePath>$([System.Text.RegularExpressions.Regex]::Replace('%(PackagePath)', '(?&lt;=\A|;)[\\/](?!;|\Z)', ''))</PackagePath>
     </None>
   </ItemGroup>
 
