@@ -78,6 +78,9 @@ Enabled by default, can be disabled by setting `$(DisableAutorh)` to `true`. Aut
   </ItemGroup>
 ```
 
+#### Library Placeholder
+A library placeholder refers to a file named `_._` in the NuGet package under the directories `lib/**/_._`. The purpose of this file is to indicate a package supports a target framework, but does not have any binaries for that target framework. This file can be added by setting the MSBuild property `AddMetapackagePlaceholderLibrary` to true in the project file.
+
 ## Development
 
 ### Prerequisites
