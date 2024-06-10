@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 
-namespace Belp.Build.Packinf.UnitTests;
+namespace Belp.Build.Packinf.IntegrationTests;
 
 public partial class PackEquivalencyTests
 {

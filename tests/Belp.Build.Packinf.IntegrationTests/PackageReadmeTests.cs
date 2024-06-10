@@ -3,7 +3,7 @@ using System.IO.Compression;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace Belp.Build.Packinf.UnitTests;
+namespace Belp.Build.Packinf.IntegrationTests;
 
 public class PackageReadmeTests
 {

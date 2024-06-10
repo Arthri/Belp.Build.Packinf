@@ -1,6 +1,6 @@
 ﻿using System.IO.Compression;
 
-namespace Belp.Build.Packinf.UnitTests;
+namespace Belp.Build.Packinf.IntegrationTests;
 
 public class LibraryPlaceholderTests
 {
@@ -23,7 +23,7 @@ public class LibraryPlaceholderTests
               </ItemGroup>
 
             </Project>
-            
+
             """);
         MSBuildResult result = project.Pack(BuildRequestDataFlags.ProvideProjectStateAfterBuild);
 
