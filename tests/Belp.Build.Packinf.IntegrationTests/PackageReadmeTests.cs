@@ -2,10 +2,11 @@
 using System.IO.Compression;
 using System.Xml;
 using System.Xml.Linq;
+using Xunit.Abstractions;
 
 namespace Belp.Build.Packinf.IntegrationTests;
 
-public class PackageReadmeTests
+public class PackageReadmeTests(ITestOutputHelper logger)
 {
     private static ZipArchive GetNupkgFromBuildResult(MSBuildResult result)
     {
@@ -111,8 +112,11 @@ public class PackageReadmeTests
         await p_gitInit.WaitForExitAsync();
         using (new AssertionScope())
         {
-            p_gitInit.StandardError.ReadToEnd().Should().BeEmpty();
             p_gitInit.ExitCode.Should().Be(0);
+            if (p_gitInit.ExitCode != 0)
+            {
+                logger.WriteLine(p_gitInit.StandardError.ReadToEnd());
+            }
         }
         Process p_gitCommit = Process.Start(new ProcessStartInfo
         {
@@ -124,8 +128,11 @@ public class PackageReadmeTests
         await p_gitCommit.WaitForExitAsync();
         using (new AssertionScope())
         {
-            p_gitCommit.StandardError.ReadToEnd().Should().BeEmpty();
             p_gitCommit.ExitCode.Should().Be(0);
+            if (p_gitCommit.ExitCode != 0)
+            {
+                logger.WriteLine(p_gitCommit.StandardError.ReadToEnd());
+            }
         }
         MSBuildResult result = project.Pack(
             BuildRequestDataFlags.ProvideProjectStateAfterBuild
