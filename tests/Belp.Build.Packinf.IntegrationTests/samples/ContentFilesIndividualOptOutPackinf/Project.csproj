@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <CopyrightOwner Include="John Doe" Years="2021" />
-    <PackageAsset Update="Assets\content\c.txt" IncludeInContentFiles="false" />
+    <PackageAsset Update="Assets\content\d.html" IncludeInContentFiles="false" />
   </ItemGroup>
 
 </Project>
