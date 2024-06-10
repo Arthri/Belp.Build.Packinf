@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <CopyrightOwner Include="John Doe" Years="2021" />
+    <None Update="a.rtf" Pack="true" PackagePath="contentFiles/%(Filename)%(Extension)" />
+    <None Update="b.md" Pack="true" PackagePath="tools/%(Filename)%(Extension)" />
+    <None Update="d.html" Pack="true" PackagePath="content/%(Filename)%(Extension)" />
+    <Content Include="c.txt" Pack="true" />
+  </ItemGroup>
+
+</Project>

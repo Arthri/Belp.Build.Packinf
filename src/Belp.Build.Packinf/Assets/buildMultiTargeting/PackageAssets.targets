@@ -13,7 +13,8 @@
     <None Include="@(PackageAsset)">
       <Pack>true</Pack>
 
-      <PackagePath Condition="'%(PackagePath)' == ''">content;contentFiles</PackagePath>
+      <PackagePath Condition="'%(PackagePath)' == '' And '$(IncludeContentInContentFiles)' != 'false' And '%(IncludeInContentFiles)' != 'false'">content;contentFiles</PackagePath>
+      <PackagePath Condition="'%(PackagePath)' == ''">content</PackagePath>
 
       <!--
         Expands contentFiles/ to contentFiles/{language}/{tfm}

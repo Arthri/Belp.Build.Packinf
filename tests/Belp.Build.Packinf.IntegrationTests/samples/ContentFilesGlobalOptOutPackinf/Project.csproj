@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <IncludeContentInContentFiles>false</IncludeContentInContentFiles>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <CopyrightOwner Include="John Doe" Years="2021" />
+  </ItemGroup>
+
+</Project>

@@ -127,4 +127,16 @@ public partial class PackEquivalencyTests
     {
         AssertPacksEqual("ContentPackageIdPackinfPackMultiTargeting", "ContentPackageIdNuGetPackMultiTargeting");
     }
+
+    [Fact]
+    public void Files_in_AssetsX2Fcontent_should_not_be_included_in_contentFiles_when_globally_opting_out()
+    {
+        AssertPacksEqual("ContentFilesGlobalOptOutPackinf", "ContentFilesGlobalOptOutNuGet");
+    }
+
+    [Fact]
+    public void Files_in_AssetsX2Fcontent_should_not_be_included_in_contentFiles_when_individually_opting_out()
+    {
+        AssertPacksEqual("ContentFilesIndividualOptOutPackinf", "ContentFilesIndividualOptOutNuGet");
+    }
 }

@@ -56,6 +56,11 @@ Files that are named `_Package` will be automatically renamed to `$(PackageId)` 
 ### `Assets/` folder
 By default, all files inside `Assets/` will be packed. This behavior can be disabled by setting `$(EnableDefaultPackItems)` to false.
 
+#### `Assets/content` folder
+All files in this folder will be packed into the package's `content/` folder, as well as the `contentFiles/` folder(s) matching the target frameworks of the project.
+
+Assets can opt-out of automatic `contentFiles/` packing globally by setting the MSBuild property `$(IncludeContentInContentFiles)` to false or individually by setting the item metadata `%(IncludeInContentFiles)` to false.
+
 ### README file
 Files that are named `README`(case-insensitive) and are placed beside the project will be packed as the package's README file. If no READMEs are present beside the project, and SourceLink is installed in the project, the file named `README.md` at the repository's root(if present) will be used instead. Only one README should be defined.
 
