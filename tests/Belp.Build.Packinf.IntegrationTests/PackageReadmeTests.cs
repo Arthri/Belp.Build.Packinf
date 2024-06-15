@@ -2,10 +2,11 @@
 using System.IO.Compression;
 using System.Xml;
 using System.Xml.Linq;
+using Xunit.Abstractions;
 
-namespace Belp.Build.Packinf.UnitTests;
+namespace Belp.Build.Packinf.IntegrationTests;
 
-public class PackageReadmeTests
+public class PackageReadmeTests(ITestOutputHelper logger)
 {
     private static ZipArchive GetNupkgFromBuildResult(MSBuildResult result)
     {
@@ -106,17 +107,33 @@ public class PackageReadmeTests
             FileName = "git",
             ArgumentList = { "init" },
             WorkingDirectory = sample.Directory,
+            RedirectStandardError = true,
         })!;
         await p_gitInit.WaitForExitAsync();
-        p_gitInit.ExitCode.Should().Be(0);
+        using (new AssertionScope())
+        {
+            p_gitInit.ExitCode.Should().Be(0);
+            if (p_gitInit.ExitCode != 0)
+            {
+                logger.WriteLine(p_gitInit.StandardError.ReadToEnd());
+            }
+        }
         Process p_gitCommit = Process.Start(new ProcessStartInfo
         {
             FileName = "git",
             ArgumentList = { "-c", "user.name=\"John Doe\"", "-c", "user.email=\"john.doe@example.com\"", "commit", "--allow-empty", "--only", "-m", "Initial Commit" },
             WorkingDirectory = sample.Directory,
+            RedirectStandardError = true,
         })!;
         await p_gitCommit.WaitForExitAsync();
-        p_gitCommit.ExitCode.Should().Be(0);
+        using (new AssertionScope())
+        {
+            p_gitCommit.ExitCode.Should().Be(0);
+            if (p_gitCommit.ExitCode != 0)
+            {
+                logger.WriteLine(p_gitCommit.StandardError.ReadToEnd());
+            }
+        }
         MSBuildResult result = project.Pack(
             BuildRequestDataFlags.ProvideProjectStateAfterBuild
         );

@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 
-namespace Belp.Build.Packinf.UnitTests;
+namespace Belp.Build.Packinf.IntegrationTests;
 
 public partial class PackEquivalencyTests
 {
@@ -126,5 +126,17 @@ public partial class PackEquivalencyTests
     public void Packinf_should_substitute_Package_ID_and_result_in_equal_package_when_in_content_and_when_multitargeting()
     {
         AssertPacksEqual("ContentPackageIdPackinfPackMultiTargeting", "ContentPackageIdNuGetPackMultiTargeting");
+    }
+
+    [Fact]
+    public void Files_in_AssetsX2Fcontent_should_not_be_included_in_contentFiles_when_globally_opting_out()
+    {
+        AssertPacksEqual("ContentFilesGlobalOptOutPackinf", "ContentFilesGlobalOptOutNuGet");
+    }
+
+    [Fact]
+    public void Files_in_AssetsX2Fcontent_should_not_be_included_in_contentFiles_when_individually_opting_out()
+    {
+        AssertPacksEqual("ContentFilesIndividualOptOutPackinf", "ContentFilesIndividualOptOutNuGet");
     }
 }

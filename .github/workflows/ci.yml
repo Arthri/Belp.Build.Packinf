@@ -28,7 +28,25 @@ jobs:
       - name: Setup .NET
         id: setup-dotnet
         uses: actions/setup-dotnet@v4
-        
+
+      - name: Collect Cache Paths
+        run: |
+          NUGET_LOCAL_PATHS="$(dotnet nuget locals --list all)"
+          echo "$NUGET_LOCAL_PATHS"
+          {
+            echo 'NUGET_LOCALS<<"""'
+            sed -n 's/^[^:]\+: \(.\+\)/\1/p' <<< "$NUGET_LOCAL_PATHS" | jq -R -s
+            echo '"""'
+          } >> "$GITHUB_ENV"
+
+      - uses: actions/cache@v4
+        with:
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json', '**/dotnet-tools.json', '**/*.*proj') }}
+          path: |
+            ${{ fromJson(env.NUGET_LOCALS) }}
+            ~/.dotnet/toolResolverCache
+            **/obj
+
       - name: Build Projects
         run: dotnet build
 
@@ -44,7 +62,25 @@ jobs:
       - name: Setup .NET
         id: setup-dotnet
         uses: actions/setup-dotnet@v4
-        
+
+      - name: Collect Cache Paths
+        run: |
+          NUGET_LOCAL_PATHS="$(dotnet nuget locals --list all)"
+          echo "$NUGET_LOCAL_PATHS"
+          {
+            echo 'NUGET_LOCALS<<"""'
+            sed -n 's/^[^:]\+: \(.\+\)/\1/p' <<< "$NUGET_LOCAL_PATHS" | jq -R -s
+            echo '"""'
+          } >> "$GITHUB_ENV"
+
+      - uses: actions/cache@v4
+        with:
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json', '**/dotnet-tools.json', '**/*.*proj') }}
+          path: |
+            ${{ fromJson(env.NUGET_LOCALS) }}
+            ~/.dotnet/toolResolverCache
+            **/obj
+
       - name: Run .NET Format
         run: dotnet format --severity info --verify-no-changes
 
@@ -60,6 +96,24 @@ jobs:
       - name: Setup .NET
         id: setup-dotnet
         uses: actions/setup-dotnet@v4
-        
+
+      - name: Collect Cache Paths
+        run: |
+          NUGET_LOCAL_PATHS="$(dotnet nuget locals --list all)"
+          echo "$NUGET_LOCAL_PATHS"
+          {
+            echo 'NUGET_LOCALS<<"""'
+            sed -n 's/^[^:]\+: \(.\+\)/\1/p' <<< "$NUGET_LOCAL_PATHS" | jq -R -s
+            echo '"""'
+          } >> "$GITHUB_ENV"
+
+      - uses: actions/cache@v4
+        with:
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json', '**/dotnet-tools.json', '**/*.*proj') }}
+          path: |
+            ${{ fromJson(env.NUGET_LOCALS) }}
+            ~/.dotnet/toolResolverCache
+            **/obj
+
       - name: Run Tests
         run: dotnet test

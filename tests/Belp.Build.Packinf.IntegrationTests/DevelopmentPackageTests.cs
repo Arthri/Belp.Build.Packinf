@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace Belp.Build.Packinf.UnitTests;
+namespace Belp.Build.Packinf.IntegrationTests;
 
 public class DevelopmentPackageTests
 {

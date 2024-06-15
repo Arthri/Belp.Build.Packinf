@@ -2,8 +2,6 @@
 
   <Import Condition="'$(TargetFramework)' == ''" Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\SingleOrOuter.props" />
 
-  <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\SingleOrInner.props" />
-
   <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\SingleOrInnerOrOuter.props" />
 
 </Project>

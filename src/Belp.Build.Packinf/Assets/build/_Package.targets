@@ -12,8 +12,6 @@
 
   <Import Condition="'$(TargetFrameworks)' == ''" Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\SingleOrOuter.targets" />
 
-  <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\SingleOrInner.targets" />
-
   <Import Project="$(MSBuildThisFileDirectory)..\buildMultiTargeting\SingleOrInnerOrOuter.targets" />
 
 </Project>
