@@ -34,16 +34,6 @@
 
 
 
-  <!-- Development Dependencies -->
-  <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-
-
-
   <Import Project="Sdk.targets" Sdk="Belp.SDK.PackOnly" Version="0.5.0" />
 
   <Import Project="Assets/build/_Package.targets" />
