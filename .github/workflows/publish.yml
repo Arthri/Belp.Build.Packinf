@@ -1,4 +1,4 @@
-name: Deploy
+name: Publish
 
 on:
   release:
@@ -6,10 +6,10 @@ on:
       - published
 
 jobs:
-  deploy:
-    uses: Arthri/deploy-nuget/.github/workflows/deploy.yml@v1
+  publish-nuget:
+    uses: Arthri/publish-dotnet/.github/workflows/publish-nuget.yml@v2
     secrets:
-      NUGET-API-KEY: ${{ secrets.NUGET_API_KEY }}
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
     with:
       changelog: ${{ github.event.release.body }}
       version: ${{ github.event.release.tag_name }}
