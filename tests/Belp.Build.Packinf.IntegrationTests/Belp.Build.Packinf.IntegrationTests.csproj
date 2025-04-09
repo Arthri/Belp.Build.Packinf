@@ -1,12 +1,5 @@
 ﻿<Project Sdk="Belp.SDK.Build.Testing.XUnit/1.1.0">
 
-  <!-- Test Configuration -->
-  <ItemGroup>
-    <TestProjectReference Include="../../src/Belp.Build.Packinf/Belp.Build.Packinf.csproj" Alias="ThisPackage" />
-  </ItemGroup>
-
-
-
   <!-- Compiler Configuration -->
   <ItemGroup>
     <Using Include="FluentAssertions" />
@@ -22,6 +15,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <TestProjectReference Include="../../src/Belp.Build.Packinf/Belp.Build.Packinf.csproj" Alias="ThisPackage" />
   </ItemGroup>
 
 </Project>
