@@ -6,114 +6,18 @@ on:
   pull_request:
     branches: [ master, dev ]
 
-defaults:
-  run:
-    shell: bash
-
-env:
-  DOTNET_CLI_TELEMETRY_OPTOUT: 1
-  DOTNET_GENERATE_ASPNET_CERTIFICATE: 'false'
-  DOTNET_NOLOGO: 'true'
-  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 'true'
-
 jobs:
   build:
-    runs-on: ubuntu-22.04
-    timeout-minutes: 2
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup .NET
-        id: setup-dotnet
-        uses: actions/setup-dotnet@v4
-
-      - name: Collect Cache Paths
-        run: |
-          NUGET_LOCAL_PATHS="$(dotnet nuget locals --list all)"
-          echo "$NUGET_LOCAL_PATHS"
-          {
-            echo 'NUGET_LOCALS<<"""'
-            sed -n 's/^[^:]\+: \(.\+\)/\1/p' <<< "$NUGET_LOCAL_PATHS" | jq -R -s
-            echo '"""'
-          } >> "$GITHUB_ENV"
-
-      - uses: actions/cache@v4
-        with:
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json', '**/dotnet-tools.json', '**/*.*proj') }}
-          path: |
-            ${{ fromJson(env.NUGET_LOCALS) }}
-            ~/.dotnet/toolResolverCache
-            **/obj
-
-      - name: Build Projects
-        run: dotnet build
-
+    uses: Arthri/build-dotnet/.github/workflows/i.yml@v1
+    permissions:
+      contents: read
   format:
-    runs-on: ubuntu-22.04
-    timeout-minutes: 5
     needs: build
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup .NET
-        id: setup-dotnet
-        uses: actions/setup-dotnet@v4
-
-      - name: Collect Cache Paths
-        run: |
-          NUGET_LOCAL_PATHS="$(dotnet nuget locals --list all)"
-          echo "$NUGET_LOCAL_PATHS"
-          {
-            echo 'NUGET_LOCALS<<"""'
-            sed -n 's/^[^:]\+: \(.\+\)/\1/p' <<< "$NUGET_LOCAL_PATHS" | jq -R -s
-            echo '"""'
-          } >> "$GITHUB_ENV"
-
-      - uses: actions/cache@v4
-        with:
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json', '**/dotnet-tools.json', '**/*.*proj') }}
-          path: |
-            ${{ fromJson(env.NUGET_LOCALS) }}
-            ~/.dotnet/toolResolverCache
-            **/obj
-
-      - name: Run .NET Format
-        run: dotnet format --severity info --verify-no-changes
-
+    uses: Arthri/format-dotnet/.github/workflows/i.yml@v1
+    permissions:
+      contents: read
   test:
-    runs-on: ubuntu-22.04
-    timeout-minutes: 5
     needs: format
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup .NET
-        id: setup-dotnet
-        uses: actions/setup-dotnet@v4
-
-      - name: Collect Cache Paths
-        run: |
-          NUGET_LOCAL_PATHS="$(dotnet nuget locals --list all)"
-          echo "$NUGET_LOCAL_PATHS"
-          {
-            echo 'NUGET_LOCALS<<"""'
-            sed -n 's/^[^:]\+: \(.\+\)/\1/p' <<< "$NUGET_LOCAL_PATHS" | jq -R -s
-            echo '"""'
-          } >> "$GITHUB_ENV"
-
-      - uses: actions/cache@v4
-        with:
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json', '**/dotnet-tools.json', '**/*.*proj') }}
-          path: |
-            ${{ fromJson(env.NUGET_LOCALS) }}
-            ~/.dotnet/toolResolverCache
-            **/obj
-
-      - name: Run Tests
-        run: dotnet test
+    uses: Arthri/test-dotnet/.github/workflows/i.yml@v1
+    permissions:
+      contents: read
