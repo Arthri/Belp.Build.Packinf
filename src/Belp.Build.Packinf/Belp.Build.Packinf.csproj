@@ -27,7 +27,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <CopyrightOwner Include="Arthri" Years="2023" />
+    <CopyrightOwner Include="Arthri" Years="2023, 2024, 2025" />
   </ItemGroup>
 
 
