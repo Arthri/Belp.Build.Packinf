@@ -1,9 +1,5 @@
 <Project Sdk="Belp.SDK.PackOnly/0.5.0">
 
-  <Import Project="Assets/build/_Package.props" />
-
-
-
   <!-- Build Configuration -->
   <PropertyGroup>
     <ReferencePackinf>false</ReferencePackinf>
@@ -29,9 +25,5 @@
   <ItemGroup>
     <CopyrightOwner Include="Arthri" Years="2023, 2024, 2025" />
   </ItemGroup>
-
-
-
-  <Import Project="Assets/build/_Package.targets" />
 
 </Project>
