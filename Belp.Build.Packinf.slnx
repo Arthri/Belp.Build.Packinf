@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="src/Belp.Build.Packinf/Belp.Build.Packinf.csproj">
+    <BuildType Project="Release" />
+  </Project>
+  <Project Path="tests/Belp.Build.Packinf.IntegrationTests/Belp.Build.Packinf.IntegrationTests.csproj" />
+</Solution>
